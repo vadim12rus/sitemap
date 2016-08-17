@@ -1,0 +1,8213 @@
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <cmath>
+#include <windows.h>
+using namespace sf;
+
+bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}
+
+struct Speed
+{
+	float vx;
+	float vy;
+}
+
+struct Position
+{
+	float x;
+	float y;
+}
+
+struct FigureCircle
+{
+	int weight;
+	Speed v;
+	Position pos;
+};
+
+int main()
+{
+	float currentAngle = 0; // текущее значение угла
+    float radius = 80; // радиус окружности
+    int baseX = 400; // x координата центра окружности
+    int baseY = 300; // y координата центра окружности
+	float G = 6.67384;
+
+	RenderWindow window(VideoMode(900, 700), "Orbiting");
+
+	CircleShape shape(50.f);
+	shape.setFillColor(Color::Black);
+	shape.setPosition(400,300);
+	shape.setOrigin(50,50);
+	int shapeWeight = 100;
+
+	CircleShape shape2(10.f);
+	shape2.setFillColor(Color::Black);
+	shape2.setPosition(600,400);
+	shape2.setOrigin(10,10);
+	int shape2Weight = 10;
+
+	while (window.isOpen())
+	{
+		Event event;
+		while (window.pollEvent(event))	
+		{		
+			if (event.type == sf::Event::Closed)		
+			{
+				window.close();
+			}
+		}
+
+		Vector2f positionShape2 = shape2.getPosition();
+		Vector2f positionShape = shape.getPosition();
+	    float radius = sqrt((positionShape2.x - positionShape.x) * (positionShape2.x - positionShape.x) + (positionShape2.y - positionShape.y) * (positionShape2.y - positionShape.y));
+		float f =   G * shapeWeight * shape2Weight / (radius * radius);
+		float vx = cos(currentAngle) * radius;
+        float vy = sin(currentAngle) * radius;
+		
+		std::cout<<f<<std::endl;
+		//Sleep(1000);
+		if (!isCollisions(positionShape2.x, positionShape2.y))
+		{
+			if (f <= 0.09)
+			{
+			    shape2.setPosition(vx + baseX + 0.02, vy + baseY + 0.02);	
+				
+			}
+			else
+			{
+				shape2.setPosition(vx + baseX +f, vy + baseY +f);	
+				
+			}
+		}
+
+		window.clear(Color::White);
+		window.draw(shape);
+		window.draw(shape2);
+		window.display();
+		currentAngle += 0.003;
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+
+using namespace sf;
+
+bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}
+
+struct Speed
+{
+	float vx;
+	float vy;
+}
+
+struct Position
+{
+	float x;
+	float y;
+}
+
+struct FigureCircle
+{
+	int weight;
+	Speed v;
+	Position pos;
+};
+
+const float G = 6.67384;
+
+int main()
+{
+	FigureCircle body1;
+	FigureCircle body2;
+	//Initialize
+
+	float currentAngle = 0; // текущее значение угла
+    float radius = 80; // радиус окружности
+    int baseX = 400; // x координата центра окружности
+    int baseY = 300; // y координата центра окружности
+
+
+	RenderWindow window(VideoMode(900, 700), "Orbiting");
+
+	/*CircleShape shape(50.f);
+	shape.setFillColor(Color::Black);
+	shape.setPosition(400,300);
+	shape.setOrigin(50,50);
+	int shapeWeight = 100;
+
+	CircleShape shape2(10.f);
+	shape2.setFillColor(Color::Black);
+	shape2.setPosition(600,400);
+	shape2.setOrigin(10,10);
+	int shape2Weight = 10;*/
+
+	//Initialize Timer
+
+	while (window.isOpen())
+	{
+		//To function
+		Event event;
+		while (window.pollEvent(event))	
+		{		
+			if (event.type == sf::Event::Closed)		
+			{
+				window.close();
+			}
+		}
+
+		//To function
+		//Перерасчет модели
+		//while (deltaT > 1 / FPS)
+		{
+		}
+
+		Vector2f positionShape2 = shape2.getPosition();
+		Vector2f positionShape = shape.getPosition();
+	    float radius = sqrt((positionShape2.x - positionShape.x) * (positionShape2.x - positionShape.x) + (positionShape2.y - positionShape.y) * (positionShape2.y - positionShape.y));
+		float f =   G * shapeWeight * shape2Weight / (radius * radius);
+		float vx = cos(currentAngle) * radius;
+        float vy = sin(currentAngle) * radius;
+		
+		std::cout<<f<<std::endl;
+		//Sleep(1000);
+		if (!isCollisions(positionShape2.x, positionShape2.y))
+		{
+			if (f <= 0.09)
+			{
+			    shape2.setPosition(vx + baseX + 0.02, vy + baseY + 0.02);	
+				
+			}
+			else
+			{
+				shape2.setPosition(vx + baseX +f, vy + baseY +f);	
+				
+			}
+		}
+
+		//Преобразование модели в отображение
+		//CircleShape shape...
+
+		window.clear(Color::White);
+		window.draw(shape);
+		window.draw(shape2);
+		window.display();
+		currentAngle += 0.003;
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+
+using namespace sf;
+
+bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}
+
+struct Speed
+{
+	float vx;
+	float vy;
+};
+
+struct Position
+{
+	float x;
+	float y;
+};
+
+struct FigureCircle
+{
+	int weight;
+	Speed v;
+	//Position pos;
+	CircleShape sh;
+};
+
+const float G = 6.67384;
+
+
+int main()
+{
+		RenderWindow window(VideoMode(900, 700), "Orbiting");
+	  window.setFramerateLimit(300);
+	FigureCircle body1;
+	FigureCircle body2;
+	
+	//Initialize body1
+	body1.weight = 100;
+	body1.v.vx = 0;
+	body1.v.vy = 0;
+	body1.sh.setRadius(50.f);
+	body1.sh.setFillColor(Color::Black);
+	body1.sh.setPosition(400,300);
+	body1.sh.setOrigin(50,50);
+
+	//Initialize body2
+	body2.weight = 10;
+	body2.v.vx = 0;
+	body2.v.vy = 0;
+	body2.sh.setRadius(10.f);
+	body2.sh.setFillColor(Color::Black);
+	body2.sh.setPosition(600,400);
+	body2.sh.setOrigin(10,10);
+	
+
+	float currentAngle = 0; // текущее значение угла
+    float distance = 80; // радиус окружности
+    int baseX = 400; // x координата центра окружности body1
+    int baseY = 300; // y координата центра окружности body1
+
+
+
+
+ sf::Clock dtClock;
+  const sf::Time dt = sf::seconds(1.0f / 60.0f);
+  sf::Time timeLastUpdate = sf::Time::Zero;
+	
+	/*CircleShape shape(50.f);
+	shape.setFillColor(Color::Black);
+	shape.setPosition(400,300);
+	shape.setOrigin(50,50);
+	int shapeWeight = 100;
+
+	CircleShape shape2(10.f);
+	shape2.setFillColor(Color::Black);
+	shape2.setPosition(600,400);
+	shape2.setOrigin(10,10);
+	int shape2Weight = 10;*/
+
+	//Initialize Timer
+  sf::Vector2f center = sf::Vector2f(static_cast<float>(window.getSize().x / 2), static_cast<float>(window.getSize().y / 2));
+
+	while (window.isOpen())
+	{
+		 timeLastUpdate += dtClock.restart();
+		//To function
+		Event event;
+		while (window.pollEvent(event))	
+		{		
+			if (event.type == sf::Event::Closed)		
+			{
+				window.close();
+			}
+		}
+
+		//To function
+		//Перерасчет модели
+		//while (deltaT > 1 / FPS)
+		//{
+		//}
+
+		/*Vector2f positionShape2 = shape2.getPosition();
+		Vector2f positionShape = shape.getPosition();
+	    float radius = sqrt((positionShape2.x - positionShape.x) * (positionShape2.x - positionShape.x) + (positionShape2.y - positionShape.y) * (positionShape2.y - positionShape.y));
+		float f =   G * shapeWeight * shape2Weight / (radius * radius);
+		float vx = cos(currentAngle) * radius;
+        float vy = sin(currentAngle) * radius;
+		
+		std::cout<<f<<std::endl;
+		//Sleep(1000);
+		if (!isCollisions(positionShape2.x, positionShape2.y))
+		{
+			if (f <= 0.09)
+			{
+			    shape2.setPosition(vx + baseX + 0.02, vy + baseY + 0.02);	
+				
+			}
+			else
+			{
+				shape2.setPosition(vx + baseX +f, vy + baseY +f);	
+				
+			}
+		}
+
+		//Преобразование модели в отображение
+		//CircleShape shape...*/
+		int i;
+		while (timeLastUpdate > dt) 
+		{
+            i++;
+			std::cout<<i<<std::endl;
+			 timeLastUpdate -= dt;
+			
+			 float distance = sqrt((body2.sh.getPosition().x - body1.sh.getPosition().x) * (body2.sh.getPosition().x - body1.sh.getPosition().x) + (body2.sh.getPosition().y - body1.sh.getPosition().y) * (body2.sh.getPosition().y - body1.sh.getPosition().y));
+	
+			  float vx = cos(currentAngle) * distance;
+        float vy = sin(currentAngle) * distance;
+			  body2.sh.setPosition(
+			   vx + baseX , vy + baseY 
+				);
+
+        // ### end of relevant part ###
+      
+      
+		}
+		//Sleep(1000);
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+		currentAngle += 0.003;
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <cmath>
+#include <math.h>
+#include <windows.h>
+
+using namespace sf;
+
+bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}
+
+
+struct Speed
+{
+	float vx;
+	float vy;
+};
+
+struct Position
+{
+	float x;
+	float y;
+};
+
+struct FigureCircle
+{
+	int weight;
+	Speed v;
+	//Position pos;
+	CircleShape sh;
+};
+
+const double G = 6.67384 * pow(10.0, -11.0);
+
+void ProcessEvents(RenderWindow& window)
+{
+
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+	}
+}
+
+void Render(RenderWindow& window, FigureCircle body1, FigureCircle body2)
+{
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+}
+int main()
+{
+	RenderWindow window(VideoMode(900, 700), "Orbiting");
+
+	 // window.setFramerateLimit(300);
+	FigureCircle body1;
+	FigureCircle body2;
+	
+	//Initialize body1
+	body1.weight = 100;
+	body1.v.vx = 0;
+	body1.v.vy = 0;
+	body1.sh.setRadius(50.f);
+	body1.sh.setFillColor(Color::Black);
+	body1.sh.setPosition(400,300);
+	body1.sh.setOrigin(50,50);
+
+	//Initialize body2
+	body2.weight = 10;
+	body2.v.vx = 0;
+	body2.v.vy = 0;
+	body2.sh.setRadius(10.f);
+	body2.sh.setFillColor(Color::Black);
+	body2.sh.setPosition(600,400);
+	body2.sh.setOrigin(10,10);
+	
+
+	//float currentAngle = 0; // текущее значение угла
+    float distance = 80; // радиус окружности
+    int baseX = 400; // x координата центра окружности
+    int baseY = 300; // y координата центра окружности
+
+
+	//Initialize Timer
+
+	sf::Clock clock;
+    sf::Time accumulator = sf::Time::Zero;
+    sf::Time ups = sf::seconds(1.f / 60.f);
+	std::cout<< ups.asSeconds() <<std::endl;
+	while (window.isOpen())
+	{
+		//To function
+		ProcessEvents(window);
+	
+
+		//To function
+		//Перерасчет модели
+		//while (deltaT > 1 / FPS)
+		std::cout<< accumulator.asSeconds() <<std::endl;
+		
+		while (accumulator > ups)
+        {
+            accumulator -= ups;
+			
+		    Vector2f positionShape2 = body2.sh.getPosition();
+		    Vector2f positionShape = body1.sh.getPosition();
+
+	        float distance = sqrt((positionShape2.x - positionShape.x) * (positionShape2.x - positionShape.x) + (positionShape2.y - positionShape.y) * (positionShape2.y - positionShape.y));
+		    float f = G * body1.weight * body2.weight / (distance * distance);
+			float accelerationBody2 = f / body2.weight;
+
+		    //float vx = cos(currentAngle) * distance + accelerationBody2;
+            //float vy = sin(currentAngle) * distance + accelerationBody2;
+		    
+		    if (!isCollisions(positionShape2.x, positionShape2.y))
+		    {
+			
+			    body2.sh.setPosition( 222 ,  222 );	
+				
+			
+		    }
+			std::cout<<"Vnutri"<<std::endl;
+		}
+
+		//Преобразование модели в отображение
+		//CircleShape shape...
+		Render(window, body1, body2);
+		//currentAngle += 0.003;
+		accumulator += clock.restart();
+		
+		
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+
+using namespace sf;
+using namespace std;
+
+bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}
+
+
+struct Speed
+{
+	float vx;
+	float vy;
+};
+
+struct Position
+{
+	float x;
+	float y;
+};
+
+struct FigureCircle
+{
+	int weight;
+	Speed v;
+	//Position pos;
+	CircleShape sh;
+};
+
+
+void ProcessEvents(RenderWindow& window)
+{
+
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+	}
+}
+
+void Render(RenderWindow& window, FigureCircle body1, FigureCircle body2)
+{
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+}
+
+const float G = 6.67384;
+
+int main()
+{
+
+	RenderWindow window(VideoMode(900, 700), "Orbiting");
+	window.setFramerateLimit(60);
+
+	FigureCircle body1;
+	FigureCircle body2;
+	
+	//Initialize body1
+	body1.weight = 100;
+	body1.v.vx = 0;
+	body1.v.vy = 0;
+	body1.sh.setRadius(50.f);
+	body1.sh.setFillColor(Color::Black);
+	body1.sh.setPosition(400,300);
+	body1.sh.setOrigin(50,50);
+
+	//Initialize body2
+	body2.weight = 10;
+	body2.v.vx = 0;
+	body2.v.vy = 0;
+	body2.sh.setRadius(10.f);
+	body2.sh.setFillColor(Color::Black);
+	body2.sh.setPosition(0,100);
+	body2.sh.setOrigin(10,10);
+	
+
+	float currentAngle = 0; // текущее значение угла
+    float distance = 80; // радиус окружности
+    int x0 = 0; // x координата центра окружности
+    int baseY = 300; // y координата центра окружности
+
+
+
+
+	while (window.isOpen())
+	{      
+		//To function
+        ProcessEvents(window);
+
+		Vector2f positionShape2 = body2.sh.getPosition();
+		Vector2f positionShape = body1.sh.getPosition();
+
+	    float distance = sqrt((positionShape2.x - positionShape.x) * (positionShape2.x - positionShape.x) + (positionShape2.y - positionShape.y) * (positionShape2.y - positionShape.y));
+		float f = G * body1.weight * body2.weight / (distance * distance);
+		float a = f / body2.weight;
+		
+		float v = 2*sqrt(distance * f/body2.weight);
+	    float t = v/a;
+		float x = positionShape2.x+v;
+		float y = positionShape2.y+v;
+		std::cout<<v<<endl;
+		body2.sh.setPosition(x, y);	
+		
+		
+	
+
+
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+		currentAngle += 0.003;
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+
+using namespace sf;
+using namespace std;
+
+bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}
+
+
+struct Speed
+{
+	float vx;
+	float vy;
+};
+
+struct Position
+{
+	float x;
+	float y;
+};
+
+struct FigureCircle
+{
+	int weight;
+	Speed v;
+	//Position pos;
+	CircleShape sh;
+};
+
+
+void ProcessEvents(RenderWindow& window)
+{
+
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+	}
+}
+
+void Render(RenderWindow& window, FigureCircle body1, FigureCircle body2)
+{
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+}
+
+const float G = 6.67384;
+
+int main()
+{
+
+	RenderWindow window(VideoMode(900, 700), "Orbiting");
+	window.setFramerateLimit(60);
+
+	FigureCircle body1;
+	FigureCircle body2;
+	
+	//Initialize body1
+	body1.weight = 100;
+	body1.v.vx = 0;
+	body1.v.vy = 0;
+	body1.sh.setRadius(50.f);
+	body1.sh.setFillColor(Color::Black);
+	body1.sh.setPosition(400,300);
+	body1.sh.setOrigin(50,50);
+
+	//Initialize body2
+	body2.weight = 10;
+	body2.v.vx = 0;
+	body2.v.vy = 0;
+	body2.sh.setRadius(10.f);
+	body2.sh.setFillColor(Color::Black);
+	body2.sh.setPosition(0,100);
+	body2.sh.setOrigin(10,10);
+	
+
+	float currentAngle = 0; // текущее значение угла
+    float distance = 80; // радиус окружности
+    int x0 = 0; // x координата центра окружности
+    int baseY = 300; // y координата центра окружности
+
+
+
+
+	while (window.isOpen())
+	{      
+		//To function
+        ProcessEvents(window);
+
+		Vector2f positionShape2 = body2.sh.getPosition();
+		Vector2f positionShape = body1.sh.getPosition();
+
+	    float distance = sqrt((positionShape2.x - positionShape.x) * (positionShape2.x - positionShape.x) + (positionShape2.y - positionShape.y) * (positionShape2.y - positionShape.y));
+		float f = G * body1.weight * body2.weight / (distance * distance);
+		float a = f / body2.weight;
+		
+		float v = sqrt(body2.weight*G/distance);
+	    float t = v/a;
+		float w = sqrt(a/distance);
+		float x = distance*cos(w*t);
+		float y = distance*sin(w*t);
+		std::cout<<v<<endl;
+		body2.sh.setPosition(x, y);	
+		
+		
+	
+
+
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+		currentAngle += 0.003;
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+
+using namespace sf;
+using namespace std;
+
+bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}
+
+
+struct Speed
+{
+	float vx;
+	float vy;
+};
+
+struct Position
+{
+	float x;
+	float y;
+};
+
+struct FigureCircle
+{
+	int weight;
+	Speed v;
+	//Position pos;
+	CircleShape sh;
+};
+
+
+void ProcessEvents(RenderWindow& window)
+{
+
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+	}
+}
+
+void Render(RenderWindow& window, FigureCircle body1, FigureCircle body2)
+{
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+}
+
+const float G = 6.67384;
+
+int main()
+{
+
+	RenderWindow window(VideoMode(900, 700), "Orbiting");
+	window.setFramerateLimit(60);
+
+	FigureCircle body1;
+	FigureCircle body2;
+	
+	//Initialize body1
+	body1.weight = 100;
+	body1.v.vx = 0;
+	body1.v.vy = 0;
+	body1.sh.setRadius(50.f);
+	body1.sh.setFillColor(Color::Black);
+	body1.sh.setPosition(400,300);
+	body1.sh.setOrigin(50,50);
+
+	//Initialize body2
+	body2.weight = 10;
+	body2.v.vx = 0;
+	body2.v.vy = 0;
+	body2.sh.setRadius(10.f);
+	body2.sh.setFillColor(Color::Black);
+	body2.sh.setPosition(100,550);
+	body2.sh.setOrigin(10,10);
+	
+
+	float currentAngle = 0; // текущее значение угла
+    float distance = 80; // радиус окружности
+    int x0 = 0; // x координата центра окружности
+    int baseY = 300; // y координата центра окружности
+		double vx =1;
+		double vy =0;
+
+    double angle = 0;
+
+	while (window.isOpen())
+	{      
+		//To function
+        ProcessEvents(window);
+
+		Vector2f positionShape2 = body2.sh.getPosition();
+		Vector2f positionShape = body1.sh.getPosition();
+
+	    float distance = sqrt((positionShape2.x - positionShape.x) * (positionShape2.x - positionShape.x)+(positionShape2.y - positionShape.y) * (positionShape2.y - positionShape.y));
+		angle = atan2(positionShape2.y - positionShape.y, positionShape2.x - positionShape.x);
+		
+		float f = G * body1.weight * body2.weight / (distance * distance);
+		float a = f/body2.weight;
+		double vx = sin(angle) * a;
+		double vy = cos(angle) * a;
+
+		double x = positionShape2.x + 100 * vx;
+		double y = positionShape2.y + 100 * vy;
+		std::cout<<vx;
+		std::cout<<" | ";
+		std::cout<<vy<<endl;
+		body2.sh.setPosition(x, y);	
+		
+		
+	
+
+
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+	}
+	return 0;
+}
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+
+using namespace sf;
+using namespace std;
+
+bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}
+
+
+struct Speed
+{
+	float vx;
+	float vy;
+};
+
+struct Position
+{
+	float x;
+	float y;
+};
+
+struct FigureCircle
+{
+	int weight;
+	Speed v;
+	//Position pos;
+	CircleShape sh;
+};
+
+
+void ProcessEvents(RenderWindow& window)
+{
+
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+	}
+}
+
+void Render(RenderWindow& window, FigureCircle body1, FigureCircle body2)
+{
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+}
+
+const float G = 6.67384;
+
+int main()
+{
+
+	RenderWindow window(VideoMode(900, 700), "Orbiting");
+	window.setFramerateLimit(60);
+
+	FigureCircle body1;
+	FigureCircle body2;
+	
+	//Initialize body1
+	body1.weight = 100;
+	body1.v.vx = 0;
+	body1.v.vy = 0;
+	body1.sh.setRadius(50.f);
+	body1.sh.setFillColor(Color::Black);
+	body1.sh.setPosition(400,300);
+	body1.sh.setOrigin(50,50);
+
+	//Initialize body2
+	body2.weight = 10;
+	body2.v.vx = 0;
+	body2.v.vy = 0;
+	body2.sh.setRadius(10.f);
+	body2.sh.setFillColor(Color::Black);
+	body2.sh.setPosition(320,20);
+	body2.sh.setOrigin(10,10);
+	
+
+	float currentAngle = 0; // текущее значение угла
+    float distance = 80; // радиус окружности
+    int x0 = 0; // x координата центра окружности
+    int baseY = 300; // y координата центра окружности
+		double vx =4.30;
+		double vy =1.0;
+
+    double angle = 0;
+
+	while (window.isOpen())
+	{     
+		double fgx = 0;
+		double fgy = 0;
+		//To function
+        ProcessEvents(window);
+
+		Vector2f earth = body2.sh.getPosition();
+		Vector2f sun = body1.sh.getPosition();
+		double dx = sun.x - earth.x;
+		double dy = sun.y - earth.y;
+	    double distance = dx * dx + dy * dy;
+		double angle = atan2(dy, dx);
+		
+		double fg = G * body1.weight * body2.weight / distance ;
+		fgx =+ fg * cos(angle);
+	    fgy =+ fg * sin(angle);
+		 vx =vx+ 10 * (fgx/body2.weight);
+		 vy =vy+ 10 * (fgy/body2.weight);
+		double x = earth.x + vx;
+		double y = earth.y + vy;
+
+		std::cout<<vx;
+		std::cout<<"|";
+		std::cout<<vy<<endl;
+		body2.sh.setPosition(x, y);	
+		
+		
+	
+
+
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+	}
+	return 0;
+}
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+
+using namespace sf;
+using namespace std;
+
+bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}
+
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+};
+
+void Initialize(FigureCircle& body, double weight, float vX, float vY, float radius,  float posX, float posY)
+{
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+	body.sh.setRadius(radius);
+	body.sh.setFillColor(Color::Black);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sh.setPosition(posX, posY);
+	body.sh.setOrigin(radius, radius);
+}
+void ProcessEvents(RenderWindow& window)
+{
+
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+	}
+}
+
+void Render(RenderWindow& window, FigureCircle body1, FigureCircle body2)
+{
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+}
+
+const double G = 6.67384;
+
+int main()
+{
+
+	RenderWindow window(VideoMode(900, 700), "Orbiting");
+	window.setFramerateLimit(60);
+
+	FigureCircle body1;
+	FigureCircle body2;
+
+	Initialize(body1, 100, 0, 0, 50, 400, 300);
+	Initialize(body2, 10, -2, -1, 10, 320, 20);
+
+	while (window.isOpen())
+	{     
+		//To function
+        ProcessEvents(window);
+
+
+		Vector2f earth = body2.sh.getPosition();
+		Vector2f sun = body1.sh.getPosition();
+		double dx = sun.x - earth.x;
+		double dy = sun.y - earth.y;
+	    double distance = dx * dx + dy * dy;
+		double angle = atan2(dy, dx);
+		
+		double fg = G * body1.weight * body2.weight / distance ;
+		double fgx = fg * cos(angle);
+	    double fgy = fg * sin(angle);
+		body2.v.vx += 10 * (fgx/body2.weight);
+		body2.v.vy += 10 * (fgy/body2.weight);
+		body2.pos.x = earth.x + body2.v.vx;
+		body2.pos.y = earth.y + body2.v.vy ;
+
+		/*std::cout<<body2.v.vx;
+		std::cout<<"|";
+		std::cout<<body2.v.vy <<endl;*/
+		body2.sh.setPosition(body2.pos.x, body2.pos.y);	
+		
+		
+	
+
+
+		Render(window, body1, body2);
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+
+using namespace sf;
+using namespace std;
+
+bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}
+
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+};
+
+void Initialize(FigureCircle& body, double weight, float vX, float vY, float radius,  float posX, float posY)
+{
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+	body.sh.setRadius(radius);
+	body.sh.setFillColor(Color::Black);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sh.setPosition(posX, posY);
+	body.sh.setOrigin(radius, radius);
+}
+void ProcessEvents(RenderWindow& window)
+{
+
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+	}
+}
+
+/*void Render(RenderWindow& window, FigureCircle body1, FigureCircle body2)
+{
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+}*/
+
+const double G = 6.67384;
+
+int main()
+{
+
+	RenderWindow window(VideoMode(900, 700), "Orbiting");
+	window.setFramerateLimit(60);
+
+	vector<FigureCircle> vecBody;
+	FigureCircle body;
+	vecBody.push_back(body);
+	vecBody.push_back(body);
+	vecBody.push_back(body);
+	vecBody.push_back(body);
+	Initialize(vecBody.at(0), 100, 0, 0, 50, 400, 300);
+	Initialize(vecBody.at(1), 10, -4, -1, 10, 320, 20);
+	Initialize(vecBody.at(2), 30, -3, -0.5, 20, 340, 20);
+	Initialize(vecBody.at(3), 5, 4, -0.5, 10, 100, 20);
+
+	while (window.isOpen())
+	{     
+		//To function
+        ProcessEvents(window);
+        window.clear(Color::White);
+		window.draw(vecBody.at(0).sh);
+		for (int i = 1; i != vecBody.size(); i++)
+		{
+		    Vector2f sun = vecBody.at(0).sh.getPosition();
+		    Vector2f earth = vecBody.at(i).sh.getPosition();
+		    double dx = sun.x - earth.x;
+		    double dy = sun.y - earth.y;
+	        double distance = dx * dx + dy * dy;
+		    double angle = atan2(dy, dx);
+		
+		    double fg = G * vecBody.at(0).weight * vecBody.at(i).weight / distance ;
+		    double fgx = fg * cos(angle);
+	        double fgy = fg * sin(angle);
+		    vecBody.at(i).v.vx += 10 * (fgx/vecBody.at(i).weight);
+		    vecBody.at(i).v.vy += 10 * (fgy/vecBody.at(i).weight);
+		    vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx;
+		    vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy ;
+
+		    vecBody.at(i).sh.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+
+		    window.draw(vecBody.at(i).sh);  
+		}
+		window.display();		
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+
+using namespace sf;
+using namespace std;
+
+bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}
+
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+};
+
+void Initialize(FigureCircle& body, double weight, float vX, float vY, float radius,  float posX, float posY)
+{
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+	body.sh.setRadius(radius);
+	body.sh.setFillColor(Color::Black);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sh.setPosition(posX, posY);
+	body.sh.setOrigin(radius, radius);
+}
+
+/*void СreateBody()
+{
+	vecBody.push_back(body);
+}*/
+
+Vector2i mousePositionClick;
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, bool& isClick)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата клавиша мыши именно левая
+		{	
+			if (event.key.code == Mouse::Left)
+			{
+		        mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+			    vecBody.push_back(body);
+			    isClick = true;
+			}
+		
+		}
+		
+		if (event.type == Event::MouseButtonReleased)//если отпустили клавишу
+		{
+
+			Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+			if (event.key.code == Mouse::Left) //а именно левую
+			{
+				isClick = false; //то не можем двигать спрайт
+				double dx = mousePositionClick.x-mousePositionReleased.x;
+				double dy = mousePositionClick.y-mousePositionReleased.y;
+				double radius = sqrt(dx*dx+dy*dy)/2;
+
+				Initialize(vecBody.at(vecBody.size()-1), 5, dx/5, dy/5, radius, mousePositionClick.x, mousePositionClick.y);
+				cout << mousePositionClick.x ;
+				cout << " ";
+				cout << mousePositionReleased.x << endl;
+			}
+			
+		}
+	}
+
+}
+
+/*void Render(RenderWindow& window, FigureCircle body1, FigureCircle body2)
+{
+		window.clear(Color::White);
+		window.draw(body1.sh);
+		window.draw(body2.sh);
+		window.display();
+}*/
+
+const double G = 6.67384;
+
+int main()
+{
+
+	RenderWindow window(VideoMode(900, 700), "Orbiting" );
+	window.setFramerateLimit(60);
+
+	vector<FigureCircle> vecBody(4);
+	FigureCircle body;
+	Initialize(vecBody.at(0), 100, 0, 0, 50, 400, 300);
+	Initialize(vecBody.at(1), 10, -5, -1, 10, 320, 20);
+	Initialize(vecBody.at(2), 5, 3, -1, 10, 100, 20);
+
+	bool isClick = false;
+	while (window.isOpen())
+	{     
+		//To function
+        window.clear(Color::White);
+		window.draw(vecBody.at(0).sh);
+		ProcessEvents(window, vecBody, body, isClick);
+		for (int i = 1; i != vecBody.size(); i++)
+		{
+		    Vector2f sun = vecBody.at(0).sh.getPosition();
+		    Vector2f earth = vecBody.at(i).sh.getPosition();
+		    double dx = sun.x - earth.x;
+		    double dy = sun.y - earth.y;
+	        double distance = dx * dx + dy * dy;
+		    double angle = atan2(dy, dx);
+		    double fg = 2*G * vecBody.at(0).weight * vecBody.at(i).weight / distance ;
+		    double fgx = fg * cos(angle);
+	        double fgy = fg * sin(angle);
+		    vecBody.at(i).v.vx += 10 * (fgx/vecBody.at(i).weight);
+		    vecBody.at(i).v.vy += 10 * (fgy/vecBody.at(i).weight);
+		    vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx;
+		    vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy ;
+
+		    vecBody.at(i).sh.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+			//6cout <<vecBody.size() <<endl;
+		    window.draw(vecBody.at(i).sh);  
+		}
+		window.display();		
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+/*bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}*/
+
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+};
+
+
+void Initialize(FigureCircle& body, double weight, double vX, double vY, double radius,  double posX, double posY)
+{
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+	body.sh.setRadius(radius);
+	body.sh.setFillColor(Color::Black);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sh.setPosition(posX, posY);
+	body.sh.setOrigin(radius, radius);
+}
+
+Vector2i mousePositionClick;
+
+double Distance(double dx, double dy)
+{
+	return pow(dx, 2) + pow(dy, 2);
+}
+
+void StartClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle body)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = sqrt(Distance(dx, dy))/2;
+	FigureCircle body;
+	Initialize(body, 5, dx/5, dy/5, radius/2, mousePositionClick.x, mousePositionClick.y);
+	vecBody.push_back(body);
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle body)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window, vecBody, body);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sh.getGlobalBounds().intersects(vecBody.at(0).sh.getGlobalBounds());
+}
+
+
+const double G = 6.67384;
+
+Vector2f DeltaPosition(Vector2f const& bod1, Vector2f const& body2)
+{
+	return Vector2f(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+Position NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+    /*Vector2f sun = vecBody[0].sh.getPosition();
+    Vector2f earth = vecBody.at(i).sh.getPosition();*/
+	Vector2f sun = (vecBody.at(i).pos.x, vecBody.at(i).pos.y);
+	Vector2f delta = DeltaPosition(sun, earth);
+
+	double distance = Distance(delta.x, delta.y);
+	double angle = atan2(delta.y, delta.x);
+	double f = 2 * G * vecBody.at(0).weight * vecBody.at(i).weight / distance ;
+	double a = f / vecBody.at(i).weight;
+	vecBody.at(i).v.vx += 10 * a * cos(angle);
+	vecBody.at(i).v.vy += 10 * a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx;
+	vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy;
+
+	return vecBody.at(i).pos;
+}
+
+int main()
+{
+	RenderWindow window(VideoMode(900, 700), "Orbiting" );
+	window.setFramerateLimit(60);
+
+	vector<FigureCircle> vecBody(1);
+	FigureCircle body;
+	Initialize(vecBody.at(0), 100, 0, 0, 50, 400, 300);
+	while (window.isOpen())
+	{     
+		//To function
+        window.clear(Color::White);
+		window.draw(vecBody.at(0).sh);
+		ProcessEvents(window, vecBody, body);
+		for (int i = 1; i != vecBody.size(); i++)
+		{
+			Position pos = NewPosition(vecBody, i); 
+		    vecBody.at(i).sh.setPosition(pos.x, pos.y);	
+			//for
+			if (CollisionBalls(vecBody, i))
+			{	
+				vecBody.erase(vecBody.begin() + i);
+			    i = 0;
+				cout << "Collision" << endl;
+			}
+			else
+			{
+				window.draw(vecBody.at(i).sh);
+			}
+			cout << vecBody.size() << endl;			
+		}
+		window.display();		
+	}
+	return 0;
+}
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+/*bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}*/
+
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, double radius,  double posX, double posY)
+{
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+	body.sh.setRadius(radius);
+	body.sh.setFillColor(Color::Black);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sh.setPosition(posX, posY);
+	body.sh.setOrigin(radius, radius);
+}
+
+Vector2i mousePositionClick;
+
+double Distance(double dx, double dy)
+{
+	return pow(dx, 2) + pow(dy, 2);
+}
+
+void StartClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle body)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = sqrt(Distance(dx, dy))/2;
+	FigureCircle body;
+	InitializeBody(body, 5, dx/5, dy/5, radius/2, mousePositionClick.x, mousePositionClick.y);
+	vecBody.push_back(body);
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle body)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window, vecBody, body);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sh.getGlobalBounds().intersects(vecBody.at(0).sh.getGlobalBounds());
+}
+
+
+const double G = 6.67384;
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+    /*Vector2f sun = vecBody[0].sh.getPosition();
+    Vector2f earth = vecBody.at(i).sh.getPosition();*/
+
+	Vector2d sun = Vector2d(vecBody[0].pos.x, vecBody[0].pos.y);
+	Vector2d earth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	Vector2d delta = DeltaPosition(sun, earth);
+
+	double distance = Distance(delta.x, delta.y);
+	double angle = atan2(delta.y, delta.x);
+	double f = 2 * G * vecBody.at(0).weight * vecBody.at(i).weight / distance ;
+	double a = f / vecBody.at(i).weight;
+	vecBody.at(i).v.vx += 10 * a * cos(angle);
+	vecBody.at(i).v.vy += 10 * a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx;
+	vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy;
+
+	vecBody.at(i).sh.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+	//return vecBody.at(i).pos;
+}
+
+int main()
+{
+	RenderWindow window(VideoMode(900, 700), "Orbiting" );
+	window.setFramerateLimit(60);
+
+	vector<FigureCircle> vecBody(1);
+	FigureCircle body;
+	InitializeBody(vecBody.at(0), 100, 0, 0, 50, 400, 300);
+	while (window.isOpen())
+	{     
+		//To function
+        window.clear(Color::White);
+		window.draw(vecBody.at(0).sh);
+		ProcessEvents(window, vecBody, body);
+		for (int i = 1; i != vecBody.size(); i++)
+		{
+			NewPosition(vecBody, i); 
+			//for
+			if (CollisionBalls(vecBody, i))
+			{	
+				vecBody.erase(vecBody.begin() + i);
+			    i = 0;
+				cout << "Collision" << endl;
+			}
+			else
+			{
+				window.draw(vecBody.at(i).sh);
+			}
+			cout << vecBody.size() << endl;			
+		}
+		window.display();		
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384e-11; // м^3 / (кг * с^2)
+/*bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}*/
+
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, double radius,  double posX, double posY)
+{
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+	body.sh.setRadius(radius);
+	body.sh.setFillColor(Color::Black);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sh.setPosition(posX, posY);
+	body.sh.setOrigin(radius, radius);
+}
+
+Vector2i mousePositionClick;
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+void StartClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle body)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = Distance(dx, dy)/2;
+	FigureCircle body;
+	InitializeBody(body, 5.97e24, dx/5, dy/5, radius/2, mousePositionClick.x, mousePositionClick.y);
+	vecBody.push_back(body);
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle body)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window, vecBody, body);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sh.getGlobalBounds().intersects(vecBody.at(0).sh.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+    /*Vector2f sun = vecBody[0].sh.getPosition();
+    Vector2f earth = vecBody.at(i).sh.getPosition();*/
+
+	Vector2d sun = Vector2d(vecBody[0].pos.x, vecBody[0].pos.y);
+	Vector2d earth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	Vector2d delta = DeltaPosition(sun, earth);
+
+	double distance = Distance(delta.x, delta.y);
+	cout << distance << endl;
+	float t = 54.2;
+	double angle = atan2(delta.y, delta.x);
+	//double f = gravConst * vecBody.at(0).weight * vecBody.at(i).weight / distance ;
+	double a =  10e-14 * gravConst * vecBody.at(0).weight / (distaneES * pow(distance, 2));
+	vecBody.at(i).v.vx +=  100 * a * cos(angle);
+	vecBody.at(i).v.vy +=  100 * a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx ;
+	vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy;
+
+	vecBody.at(i).sh.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+int main()
+{
+	RenderWindow window(VideoMode(900, 700), "Orbiting" );
+	window.setFramerateLimit(60);
+	cout << gravConst << endl;
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody.at(0), 1.9891e30, 0, 0, 50, 400, 300);
+	InitializeBody(vecBody.at(1), 5.97e24, 2.5, -0.5, 10, 500, 500);
+
+	while (window.isOpen())
+	{     
+		//To function
+        window.clear(Color::White);
+		window.draw(vecBody.at(0).sh);
+		ProcessEvents(window, vecBody, body);
+		for (int i = 1; i != vecBody.size(); i++)
+		{
+			NewPosition(vecBody, i); 
+			//for
+			if (CollisionBalls(vecBody, i))
+			{	
+				vecBody.erase(vecBody.begin() + i);
+			    i = 0;
+			}
+			else
+			{
+				window.draw(vecBody.at(i).sh);
+			}		
+		}
+		window.display();		
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384e-11; // м^3 / (кг * с^2)
+/*bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}*/
+
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, double radius,  double posX, double posY)
+{
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+	body.sh.setRadius(radius);
+	body.sh.setFillColor(Color::Black);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sh.setPosition(posX, posY);
+	body.sh.setOrigin(radius, radius);
+}
+
+Vector2i mousePositionClick;
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+void StartClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle body)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = Distance(dx, dy)/2;
+	FigureCircle body;
+	InitializeBody(body, 5.97e24, dx/5, dy/5, radius/2, mousePositionClick.x, mousePositionClick.y);
+	vecBody.push_back(body);
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle body)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window, vecBody, body);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sh.getGlobalBounds().intersects(vecBody.at(0).sh.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+    /*Vector2f sun = vecBody[0].sh.getPosition();
+    Vector2f earth = vecBody.at(i).sh.getPosition();*/
+
+	Vector2d sun = Vector2d(vecBody[0].pos.x, vecBody[0].pos.y);
+	Vector2d earth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	Vector2d delta = DeltaPosition(sun, earth);
+
+	double distance = Distance(delta.x, delta.y);
+	//cout << distance << endl;
+	float t = 0.5;
+	double angle = atan2(delta.y, delta.x);
+	//double f = gravConst * vecBody.at(0).weight * vecBody.at(i).weight / distance ;
+	double a =  10e-14 * gravConst * vecBody.at(0).weight / (distaneES * pow(distance, 2));
+	vecBody.at(i).v.vx +=  100 * a * cos(angle);
+	vecBody.at(i).v.vy +=  100 * a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx ;
+	vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy;
+
+	vecBody.at(i).sh.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+int main()
+{
+	RenderWindow window(VideoMode(900, 700), "Orbiting" );
+	//window.setFramerateLimit(300);
+	cout << gravConst << endl;
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody.at(0), 1.9891e30, 0, 0, 50, 400, 300);
+	InitializeBody(vecBody.at(1), 5.97e24, 2.5, -0.5, 10, 500, 500);
+
+
+	Clock dtClock;
+    const Time dt = seconds(1.0f / 100.0f);
+    Time timeLastUpdate = Time::Zero;
+
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, body);
+		while (timeLastUpdate > dt) 
+		{  
+			window.clear(Color::White);
+		    window.draw(vecBody.at(0).sh);
+			timeLastUpdate -= dt;  
+			for (int i = 1; i != vecBody.size(); i++)
+			{
+				NewPosition(vecBody, i); 
+				//for
+				if (CollisionBalls(vecBody, i))		
+				{	
+					vecBody.erase(vecBody.begin() + i);
+					i = 0;
+				}
+				else
+				{	
+					window.draw(vecBody.at(i).sh);	
+				}		
+			}
+			window.display();	
+		}
+		timeLastUpdate += dtClock.restart();
+			
+	}
+	return 0;
+}
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384e-11; // м^3 / (кг * с^2)
+/*bool isCollisions(float coordinatesX, float coordinatesY)
+{
+	return (coordinatesX >= 900) && (coordinatesY >= 700);
+}*/
+
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, double radius,  double posX, double posY)
+{
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+	body.sh.setRadius(radius);
+	body.sh.setFillColor(Color::Black);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sh.setPosition(posX, posY);
+	body.sh.setOrigin(radius, radius);
+}
+
+Vector2i mousePositionClick;
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+void StartClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle body)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = Distance(dx, dy)/2;
+	FigureCircle body;
+	InitializeBody(body, 5.97e24, dx/5, dy/5, radius/2, mousePositionClick.x, mousePositionClick.y);
+	vecBody.push_back(body);
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle body)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window, vecBody, body);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sh.getGlobalBounds().intersects(vecBody.at(0).sh.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+    /*Vector2f sun = vecBody[0].sh.getPosition();
+    Vector2f earth = vecBody.at(i).sh.getPosition();*/
+
+	Vector2d sun = Vector2d(vecBody[0].pos.x, vecBody[0].pos.y);
+	Vector2d earth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	Vector2d delta = DeltaPosition(sun, earth);
+
+	double distance = Distance(delta.x, delta.y);
+	//cout << distance << endl;
+	float dt = 0.02;
+	double angle = atan2(delta.y, delta.x);
+	//double f = gravConst * vecBody.at(0).weight * vecBody.at(i).weight / distance ;
+	double a = dt * 10e-14 * gravConst * vecBody.at(0).weight / (distaneES * pow(distance, 2));
+	vecBody.at(i).v.vx +=  100 * a * cos(angle);
+	vecBody.at(i).v.vy +=  100 * a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + dt *vecBody.at(i).v.vx ;
+	vecBody.at(i).pos.y = earth.y + dt *vecBody.at(i).v.vy;
+
+	vecBody.at(i).sh.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+int main()
+{
+	RenderWindow window(VideoMode(900, 700), "Orbiting" );
+	window.setFramerateLimit(60);
+	cout << gravConst << endl;
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody.at(0), 1.9891e30, 0, 0, 50, 400, 300);
+	InitializeBody(vecBody.at(1), 5.97e24, 2.5, -0.5, 10, 500, 500);
+
+
+
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, body);
+
+		window.clear(Color::White);
+		window.draw(vecBody.at(0).sh);
+
+		for (int i = 1; i != vecBody.size(); i++)
+		{
+			NewPosition(vecBody, i); 
+			//for
+			if (CollisionBalls(vecBody, i))		
+			{	
+				vecBody.erase(vecBody.begin() + i);
+				i = 0;
+			}
+			else
+			{	
+				window.draw(vecBody.at(i).sh);	
+			}		
+		}
+		window.display();	
+		
+
+			
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384e-11; // м^3 / (кг * с^2)
+
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+/*String RandomEarth()
+{
+	String earth[9];
+	earth[0] = "img/earth2.png";
+	earth[1] = "img/mars.png";
+
+	return earth[random()];
+}*/
+
+Sprite SetBackgroundSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Texture texture;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, String NameFile)
+{
+	body.texture = LoadTexture(NameFile);
+	body.sprite = SetBackgroundSprite(body.texture);
+	//body.sprite.setTexture(body.texture);
+	body.sprite.scale(scole, scole);
+	//body.texture.setSmooth(true);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+	//vecBody.push_back(body);
+	//body.sh.setRadius(radius);
+	//body.sh.setFillColor(Color::White);
+	//body.sh.setOrigin(radius, radius);
+}
+
+Vector2i mousePositionClick;
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+void StartClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle body)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+	
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	//double radius = Distance(dx, dy)/2;
+	//InitializeBody(body, 5.97e24, dx/5, dy/5, 0.05, mousePositionClick.x, mousePositionClick.y);
+	//FigureCircle body;
+	InitializeBody(body, 5.97e24, dx/5, dy/5, 0.07, mousePositionClick.x, mousePositionClick.y, "img/mars.png");
+	vecBody.push_back(body);
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window, vecBody, body);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, body);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+    /*Vector2f sun = vecBody[0].sh.getPosition();
+    Vector2f earth = vecBody.at(i).sh.getPosition();*/
+
+	Vector2d sun = Vector2d(vecBody[0].pos.x, vecBody[0].pos.y);
+	Vector2d earth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	Vector2d delta = DeltaPosition(sun, earth);
+
+	double distance = Distance(delta.x, delta.y);
+	//cout << distance << endl;
+	float dt = 0.8;
+	double angle = atan2(delta.y, delta.x);
+	//double f = gravConst * vecBody.at(0).weight * vecBody.at(i).weight / distance ;
+	double a =  dt * 10e-8 * gravConst * vecBody.at(0).weight / (pow(distaneES *  distance, 2));
+	//cout << a << endl;
+	vecBody.at(i).v.vx += 100 * a * cos(angle);
+	vecBody.at(i).v.vy += 100 * a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx * dt;
+	vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy * dt;
+
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+int main()
+{
+	RenderWindow window(VideoMode(900, 700), "Orbiting" );
+	window.setFramerateLimit(60);
+	cout << gravConst << endl;
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 1.9891e30, 0, 0, 0.15, 350, 300, "img/sun.png");
+	InitializeBody(vecBody[1], 5.97e24, 2.5, -0.5, 0.05, 520, 500, "img/earth2.png");
+
+	Texture texture = LoadTexture("img/background.jpg");
+	Sprite bg = SetBackgroundSprite(texture);
+	
+	/*Texture background;
+	Sprite bg;
+	if (!background.loadFromFile("img/earth2.png"))
+	{
+		cout << "Картинка не загружено найдена!" << endl;
+	}
+	bg.setTexture(background);
+	bg.scale(0.1f, 0.1f);
+	background.setSmooth(true);
+	bg.setPosition(100, 200);*/
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, body);
+
+		window.clear(Color::White); 
+		window.draw(bg);
+
+		window.draw(vecBody.at(0).sprite);
+		
+		for (int i = 1; i != vecBody.size(); i++)
+		{
+			NewPosition(vecBody, i); 
+			//for
+			if (CollisionBalls(vecBody, i))		
+			{	
+				vecBody.erase(vecBody.begin() + i);
+				i = 0;
+			}
+			else
+			{	
+			    window.draw(vecBody[i].sprite);		
+			}		
+			
+		}
+
+		window.display();			
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384e-11; // м^3 / (кг * с^2)
+
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+/*String RandomEarth()
+{
+	String earth[9];
+	earth[0] = "img/earth2.png";
+	earth[1] = "img/mars.png";
+
+	return earth[random()];
+}*/
+
+Sprite SetBackgroundSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct ImageSprite
+{
+	Texture texture;
+	Sprite sprite;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	ImageSprite image;
+	/*Texture texture;
+	Sprite sprite;*/
+};
+
+Texture SetTexture(int i)
+{
+	vector<Texture> setTexture;
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    earth.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture[i];
+}
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	//body.sh.setRadius(radius);
+	//body.sh.setFillColor(Color::White);
+	//body.image.texture = tx;
+	body.image.sprite = SetBackgroundSprite(tx);
+	//body.sprite.setTexture(body.texture);
+	body.image.sprite.scale(scole, scole);
+	//body.texture.setSmooth(true);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.image.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+	//vecBody.push_back(body);
+	//body.sh.setRadius(radius);
+	//body.sh.setFillColor(Color::White);
+	//body.sh.setOrigin(radius, radius);
+}
+
+Vector2i mousePositionClick;
+
+
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+void StartClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle body)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+	
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = Distance(dx, dy)/2;
+	//InitializeBody(body, 5.97e24, dx/5, dy/5, 0.05, mousePositionClick.x, mousePositionClick.y);
+	//FigureCircle body;
+	InitializeBody(body, 5.97e24, dx/5, dy/5, 0.07, mousePositionClick.x, mousePositionClick.y, setTexture[1]);
+	vecBody.push_back(body);
+
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window, vecBody, body);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, body, setTexture);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).image.sprite.getGlobalBounds().intersects(vecBody.at(0).image.sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+    /*Vector2f sun = vecBody[0].sh.getPosition();
+    Vector2f earth = vecBody.at(i).sh.getPosition();*/
+
+	Vector2d sun = Vector2d(vecBody[0].pos.x, vecBody[0].pos.y);
+	Vector2d earth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	Vector2d delta = DeltaPosition(sun, earth);
+	//cout << "Number ",i,  "", vecBody.at(i).texture. << endl;
+	double distance = Distance(delta.x, delta.y);
+	//cout << distance << endl;
+	float dt = 0.8;
+	double angle = atan2(delta.y, delta.x);
+	//double f = gravConst * vecBody.at(0).weight * vecBody.at(i).weight / distance ;
+	double a =  dt * 10e-8 * gravConst * vecBody.at(0).weight / (pow(distaneES *  distance, 2));
+	//cout << a << endl;
+	vecBody.at(i).v.vx += 100 * a * cos(angle);
+	vecBody.at(i).v.vy += 100 * a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx * dt;
+	vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy * dt;
+		//vecBody[i].image.sprite.setTexture(vecBody[i].image.texture);
+	
+	vecBody.at(i).image.sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+int main()
+{
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+	window.setFramerateLimit(60);
+
+	/*__________________________*/
+	vector<Texture> setTexture;
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    earth.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+	/*__________________________*/
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 1.9891e30, 0, 0, 0.15, 500, 350, setTexture[0]);
+	InitializeBody(vecBody[1], 5.97e24, 2.5, 2.5, 0.05, 650, 200, setTexture[1]);
+	Texture texture = LoadTexture("img/background.jpg");
+	Sprite bg = SetBackgroundSprite(texture);
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, body, setTexture);
+
+		window.clear(Color::White); 
+		window.draw(bg);
+
+		window.draw(vecBody.at(0).image.sprite);
+		
+		for (int i = 1; i != vecBody.size(); i++)
+		{
+			NewPosition(vecBody, i); 
+			//for
+			if (CollisionBalls(vecBody, i))		
+			{	
+				vecBody.erase(vecBody.begin() + i);
+				i = 0;
+			}
+			else
+			{	
+			    window.draw(vecBody[i].image.sprite);	
+				// << vecBody[i].texture. << endl;
+			}		
+			
+		}
+
+		window.display();			
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384e-11; // м^3 / (кг * с^2)
+
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetBackgroundSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    earth.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+/*String RandomEarth()
+{
+	String earth[9];
+	earth[0] = "img/earth2.png";
+	earth[1] = "img/mars.png";
+
+	return earth[random()];
+}*/
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetBackgroundSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+Vector2i mousePositionClick;
+
+
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+void StartClick(RenderWindow& window)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+	
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = Distance(dx, dy)/2;
+	InitializeBody(body, 5.97e24, dx/5, dy/5, 0.07, mousePositionClick.x, mousePositionClick.y, setTexture[1]);
+	vecBody.push_back(body);
+
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, body, setTexture);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	Vector2d sun = Vector2d(vecBody[0].pos.x, vecBody[0].pos.y);
+	Vector2d earth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	Vector2d delta = DeltaPosition(sun, earth);
+	double distance = Distance(delta.x, delta.y);
+	float dt = 0.8;
+	double angle = atan2(delta.y, delta.x);
+	double a =  10e-6 * gravConst * vecBody.at(0).weight / (pow(distaneES *  distance, 2));
+	//cout << "Volaciti = " << a << endl;
+	vecBody.at(i).v.vx += a * cos(angle);
+	vecBody.at(i).v.vy += a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx ;
+	vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy ;
+	
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+int main()
+{
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+	window.setFramerateLimit(60);
+
+	vector<Texture> setTexture = SetTexture();
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 1.9891e30, 0, 0, 0.15, 500, 350, setTexture[0]);
+	InitializeBody(vecBody[1], 5.97e24, 2.5, 2.5, 0.05, 650, 200, setTexture[1]);
+	Texture bgTexture = LoadTexture("img/background.jpg");
+	Sprite bg = SetBackgroundSprite(bgTexture);
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, body, setTexture);
+
+		window.clear(Color::White); 
+		window.draw(bg);
+
+		window.draw(vecBody.at(0).sprite);
+		
+		for (int i = 1; i != vecBody.size(); i++)
+		{
+			NewPosition(vecBody, i); 
+			//for
+			if (CollisionBalls(vecBody, i))		
+			{	
+				vecBody.erase(vecBody.begin() + i);
+				i = 0;
+			}
+			else
+			{	
+			    window.draw(vecBody[i].sprite);	
+			}		
+			
+		}
+
+		window.display();			
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384*10e-17; // м^3 / (кг * с^2)
+const Time dt = seconds(1.0f / 70.0f);
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetBackgroundSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    earth.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+/*String RandomEarth()
+{
+	String earth[9];
+	earth[0] = "img/earth2.png";
+	earth[1] = "img/mars.png";
+
+	return earth[random()];
+}*/
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetBackgroundSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+Vector2i mousePositionClick;
+
+
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+void StartClick(RenderWindow& window)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+	
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = Distance(dx, dy)/2;
+	InitializeBody(body, 5.97e24, dx/5, dy/5, 0.07, mousePositionClick.x, mousePositionClick.y, setTexture[1]);
+	vecBody.push_back(body);
+
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, body, setTexture);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	Vector2d sun = Vector2d(vecBody[0].pos.x, vecBody[0].pos.y);
+	Vector2d earth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	Vector2d delta = DeltaPosition(sun, earth);
+	double distance = Distance(delta.x, delta.y);
+	float dt = 0.8;
+	double angle = atan2(delta.y, delta.x);
+	double a =  dt  * gravConst * vecBody.at(0).weight / (pow(distaneES *  distance, 2));
+	cout << "Volaciti = " << a << endl;
+	vecBody.at(i).v.vx += a * cos(angle);
+	vecBody.at(i).v.vy += a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx * dt;
+	vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy * dt;
+	
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+int main()
+{
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+	//window.setFramerateLimit(60);
+
+	vector<Texture> setTexture = SetTexture();
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 1.9891e30, 0, 0, 0.15, 500, 350, setTexture[0]);
+	InitializeBody(vecBody[1], 5.97e24, 2.5, 2.5, 0.05, 650, 200, setTexture[1]);
+	Texture bgTexture = LoadTexture("img/background.jpg");
+	Sprite bg = SetBackgroundSprite(bgTexture);
+
+	Clock dtClock;
+    Time timeLastUpdate = Time::Zero;
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, body, setTexture);
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 
+	    	window.draw(bg);
+		    window.draw(vecBody.at(0).sprite);
+
+		    timeLastUpdate -= dt;  
+		    for (int i = 1; i != vecBody.size(); i++)
+		    {
+		    	NewPosition(vecBody, i); 
+		    	//for
+		    	if (CollisionBalls(vecBody, i))		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+			        window.draw(vecBody[i].sprite);	
+		    	}		
+			
+	    	}
+
+		    window.display();	
+		}
+		timeLastUpdate += dtClock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+//#define _CRT_SECURE_NO_WARNINGS
+
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384*10e-17; // м^3 / (кг * с^2)
+const Time dt = seconds(1.0f / 70.0f);
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetBackgroundSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    mars.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetBackgroundSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+Vector2i mousePositionClick;
+
+
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+void StartClick(RenderWindow& window)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+	
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = Distance(dx, dy)/2;
+	InitializeBody(body, 5.97e24, dx/5, dy/5, 0.07, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size()-1) +1]);
+	vecBody.push_back(body);
+
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, body, setTexture);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	Vector2d sun = Vector2d(vecBody[0].pos.x, vecBody[0].pos.y);
+	Vector2d earth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	Vector2d delta = DeltaPosition(sun, earth);
+	double distance = Distance(delta.x, delta.y);
+	float dt = 0.8;
+	double angle = atan2(delta.y, delta.x);
+	double a =  dt  * gravConst * vecBody.at(0).weight / (pow(distaneES *  distance, 2));
+	//cout << "Volaciti = " << a << endl;
+	vecBody.at(i).v.vx += a * cos(angle);
+	vecBody.at(i).v.vy += a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx * dt;
+	vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy * dt;
+	
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;//шрифт 
+    fontHelvetic.loadFromFile(nameFile);//передаем нашему шрифту файл шрифта
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+    Text text("", font, 20);
+    text.setColor(Color::White);
+    text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+    text.setPosition(10 , 10 );
+	return text;
+}
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture = SetTexture();
+
+	Texture bgTexture = LoadTexture("img/background.jpg");
+	Sprite bg = SetBackgroundSprite(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 1.9891e30, 0, 0, 0.15, 500, 350, setTexture[0]);
+	InitializeBody(vecBody[1], 5.97e24, 2.5, 2.5, 0.05, 650, 200, setTexture[1]);
+
+
+	Clock clock;
+    Time timeLastUpdate = Time::Zero;
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, body, setTexture);
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 
+
+			int fps = 1.f / (timeLastUpdate.asSeconds());
+	    	window.draw(bg);
+		    window.draw(vecBody.at(0).sprite);
+		    window.draw(text);//рисую этот текст
+		    timeLastUpdate -= dt;  
+		    for (int i = 1; i != vecBody.size(); i++)
+		    {
+		    	NewPosition(vecBody, i); 
+		    	//for
+                char str[10];
+                sprintf_s(str, "%s %d", "FPS: ", fps);
+				text.setString(str);//задает строку тексту
+		    	if (CollisionBalls(vecBody, i))		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+			        window.draw(vecBody[i].sprite);	
+		    	}		
+	    	}
+		    window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+bool CollisionImages(vector<FigureCircle>const& Object1, int i)
+{
+	double radius1 = (Object1[0].texture.getSize().x + Object1[0].texture.getSize().y) / 4;
+    double radius2 = (Object1[i].texture.getSize().x + Object1[i].texture.getSize().y) / 4;
+	double dx = Object1[0].pos.x - Object1[i].pos.x;
+    double dy = Object1[0].pos.y - Object1[i].pos.y;
+
+    return sqrt(dx * dx + dy * dy) <= radius1 + radius2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+//#define _CRT_SECURE_NO_WARNINGS
+
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384*10e-17; // м^3 / (кг * с^2)
+const Time dt = seconds(1.0f / 70.0f);
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    mars.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+Vector2i mousePositionClick;
+
+
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+void StartClick(RenderWindow& window)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+	
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = Distance(dx, dy)/2;
+	InitializeBody(body, 5.97e24, dx/5, dy/5, 0.07, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+	vecBody.push_back(body);
+
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, body, setTexture);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	Vector2d sun = Vector2d(vecBody[0].pos.x, vecBody[0].pos.y);
+	Vector2d earth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	Vector2d delta = DeltaPosition(sun, earth);
+	double distance = Distance(delta.x, delta.y);
+	float dt = 0.8;
+	double angle = atan2(delta.y, delta.x);
+	double a =  dt  * gravConst * vecBody.at(0).weight / (pow(distaneES *  distance, 2));
+	//cout << "Volaciti = " << a << endl;
+	vecBody.at(i).v.vx += a * cos(angle);
+	vecBody.at(i).v.vy += a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx * dt;
+	vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy * dt;
+	
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;//шрифт 
+    fontHelvetic.loadFromFile(nameFile);//передаем нашему шрифту файл шрифта
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+    Text text("", font, 20);
+    text.setColor(Color::White);
+    text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+    text.setPosition(10 , 10 );
+	return text;
+}
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture = SetTexture();
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetSprite(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 1.9891e30, 0, 0, 0.15, 500, 350, setTexture[1]);
+	InitializeBody(vecBody[1], 5.97e24, 2.5, 2.5, 0.05, 650, 200, setTexture[2]);
+
+	Clock clock;
+    Time timeLastUpdate = Time::Zero;
+
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, body, setTexture);
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 
+
+			int fps = 1.f / (timeLastUpdate.asSeconds());
+	    	window.draw(bg);
+		    window.draw(vecBody.at(0).sprite);
+		    window.draw(text);//рисую этот текст
+		    timeLastUpdate -= dt;  
+		    for (int i = 1; i != vecBody.size(); i++)
+		    {
+		    	NewPosition(vecBody, i); 
+		    	//for
+                char str[10];
+                sprintf_s(str, "%s %d", "FPS: ", fps);
+				text.setString(str);//задает строку тексту
+		    	if (CollisionBalls(vecBody, i))		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+			        window.draw(vecBody[i].sprite);	
+		    	}		
+	    	}
+		    window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+//#define _CRT_SECURE_NO_WARNINGS
+
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384e1; // м^3 / (кг * с^2)
+const Time dt = seconds(1.0f / 70.0f);
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    mars.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+Vector2i mousePositionClick;
+
+
+
+double Distance(double dx, double dy)
+{
+	return pow(dx, 2) + pow(dy, 2);
+}
+
+void StartClick(RenderWindow& window)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+	
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = Distance(dx, dy)/2;
+	InitializeBody(body, 40, dx/5, dy/5, 0.07, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+	vecBody.push_back(body);
+
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, body, setTexture);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	Vector2d sun = Vector2d(vecBody[0].pos.x, vecBody[0].pos.y);
+	Vector2d earth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	Vector2d delta = DeltaPosition(sun, earth);
+	double distance = Distance(delta.x, delta.y);
+	float dt = 0.4;
+	double angle = atan2(delta.y, delta.x);
+	double a =  dt  *  gravConst * vecBody.at(0).weight /  distance;
+	//cout << "Volaciti = " << a << endl;
+	vecBody.at(i).v.vx += a * cos(angle);
+	vecBody.at(i).v.vy += a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx * dt;
+	vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy * dt;
+	
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;//шрифт 
+    fontHelvetic.loadFromFile(nameFile);//передаем нашему шрифту файл шрифта
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+    Text text("", font, 20);
+    text.setColor(Color::White);
+    text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+    text.setPosition(10 , 10 );
+	return text;
+}
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture = SetTexture();
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetSprite(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 120, 1.5, 1.0, 0.15, 500, 350, setTexture[2]);
+	InitializeBody(vecBody[1], 30, 3.5, 3.5, 0.05, 650, 200, setTexture[2]);
+
+	Clock clock;
+    Time timeLastUpdate = Time::Zero;
+
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, body, setTexture);
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 
+
+			int fps = 1.f / (timeLastUpdate.asSeconds());
+	    	window.draw(bg);
+		    window.draw(vecBody.at(0).sprite);
+		    window.draw(text);//рисую этот текст
+		    timeLastUpdate -= dt;  
+		    for (int i = 1; i != vecBody.size(); i++)
+		    {
+		    	//wNewPosition(vecBody, i); 
+		    	//for
+				double vX = 0, vY = 0;
+				for (int k = 0; k != vecBody.size(); k++)
+				{
+					if (k == i)
+					{
+						continue;
+					}
+					Vector2d sun = Vector2d(vecBody[k].pos.x, vecBody[k].pos.y);
+	                Vector2d mainEarth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	                Vector2d delta = DeltaPosition(sun, mainEarth);
+	                double distance = Distance(delta.x, delta.y);
+	                float dt = 0.4;
+	                double angle = atan2(delta.y, delta.x);
+	                double a =  dt  *  gravConst * vecBody.at(k).weight /  distance;
+	                //cout << "Volaciti = " << vX  << endl;
+					vX = vX + a * cos(angle);
+					vY = vY + a * sin(angle);
+					//cout << "Volaciti = " << vX  << endl;
+	                vecBody.at(i).v.vx += a * cos(angle);
+	                vecBody.at(i).v.vy += a * sin(angle);
+					
+	                //vecBody.at(i).pos.x = mainEarth.x + vecBody.at(i).v.vx * dt;
+	                //vecBody.at(i).pos.y = mainEarth.y + vecBody.at(i).v.vy * dt;
+					//cout << "Volaciti = " << mainEarth.x << endl;
+				}
+				vecBody.at(i).sprite.move(vX, vY);	
+
+                char str[10];
+                sprintf_s(str, "%s %d", "FPS: ", fps);
+				text.setString(str);//задает строку тексту
+		    	if (CollisionBalls(vecBody, i))		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+			        window.draw(vecBody[i].sprite);	
+		    	}		
+	    	}
+		    window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+//#define _CRT_SECURE_NO_WARNINGS
+
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384*10e-11; // м^3 / (кг * с^2)
+const Time dt = seconds(1.0f / 70.0f);
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    mars.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+Vector2i mousePositionClick;
+
+
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+void StartClick(RenderWindow& window)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+	
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = 0.005 * Distance(dx, dy);
+	InitializeBody(body, 5.97e24, dx/4, dy/4, radius, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+	vecBody.push_back(body);
+
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, body, setTexture);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	Vector2d sun = Vector2d(vecBody[0].pos.x, vecBody[0].pos.y);
+	Vector2d earth = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	Vector2d delta = DeltaPosition(sun, earth);
+	double distance = Distance(delta.x, delta.y);
+	float dt = 0.5;
+	double angle = atan2(delta.y, delta.x);
+	double a =  dt  * gravConst * vecBody.at(0).weight / (pow(distaneES *  distance, 2));
+	//cout << "Volaciti = " << a << endl;
+	vecBody.at(i).v.vx += a * cos(angle);
+	vecBody.at(i).v.vy += a * sin(angle);
+	vecBody.at(i).pos.x = earth.x + vecBody.at(i).v.vx * dt;
+	vecBody.at(i).pos.y = earth.y + vecBody.at(i).v.vy * dt;
+	
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;//шрифт 
+    fontHelvetic.loadFromFile(nameFile);//передаем нашему шрифту файл шрифта
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+    Text text("", font, 20);
+    text.setColor(Color::White);
+    text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+    text.setPosition(10 , 10 );
+	return text;
+}
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture = SetTexture();
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetSprite(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 6.98e24, 0, 0, 0.15, 500, 350, setTexture[1]);
+	InitializeBody(vecBody[1], 5.97e24, 2.5, 2.5, 0.05, 650, 200, setTexture[2]);
+
+	Clock clock;
+    Time timeLastUpdate = Time::Zero;
+
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, body, setTexture);
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 
+
+			int fps = 1.f / (timeLastUpdate.asSeconds());
+	    	window.draw(bg);
+		    window.draw(vecBody.at(0).sprite);
+		    window.draw(text);//рисую этот текст
+		    timeLastUpdate -= dt;  
+		    for (int i = 1; i != vecBody.size(); i++)
+		    {
+		    	NewPosition(vecBody, i); 
+		    	//for
+                char str[10];
+                sprintf_s(str, "%s %d", "FPS: ", fps);
+				text.setString(str);//задает строку тексту
+		    	if (CollisionBalls(vecBody, i))		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+			        window.draw(vecBody[i].sprite);	
+		    	}		
+	    	}
+		    window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+//#define _CRT_SECURE_NO_WARNINGS
+
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384*10e-11; // м^3 / (кг * с^2)
+const Time dt = seconds(1.0f / 70.0f);
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    mars.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+Vector2i mousePositionClick;
+
+
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+void StartClick(RenderWindow& window)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+	
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = 0.005 * Distance(dx, dy);
+	InitializeBody(body, 1.97e23, dx/4, dy/4, radius, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+	vecBody.push_back(body);
+
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, body, setTexture);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	for (int k = 0; k !=vecBody.size(); k++)
+	{
+		if (k == i)
+		{
+			continue;
+		}
+	    Vector2d sun = Vector2d(vecBody[k].pos.x, vecBody[k].pos.y);
+	    Vector2d earthConst = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	    Vector2d delta = DeltaPosition(sun, earthConst);
+	    double distance = Distance(delta.x, delta.y);
+	    float dt = 0.01;
+	    double angle = atan2(delta.y, delta.x);
+	    double a =  dt  * gravConst * vecBody.at(k).weight / (pow( distaneES *  distance, 2));
+	    //cout << "Volaciti = " << a << endl;
+	    vecBody.at(i).v.vx += a * cos(angle);
+	    vecBody.at(i).v.vy += a * sin(angle);
+	    vecBody.at(i).pos.x = earthConst.x + vecBody.at(i).v.vx * dt;
+	    vecBody.at(i).pos.y = earthConst.y + vecBody.at(i).v.vy * dt;
+	}
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;//шрифт 
+    fontHelvetic.loadFromFile(nameFile);//передаем нашему шрифту файл шрифта
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+    Text text("", font, 20);
+    text.setColor(Color::White);
+    text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+    text.setPosition(10 , 10 );
+	return text;
+}
+
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture = SetTexture();
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetSprite(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 20.98e24, 0, 0, 0.15, 500, 350, setTexture[1]);
+	InitializeBody(vecBody[1], 5.97e24, 2.5, 2.5, 0.05, 650, 200, setTexture[2]);
+
+	Clock clock;
+    Time timeLastUpdate = Time::Zero;
+
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, body, setTexture);
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 
+
+			int fps = 1.f / (timeLastUpdate.asSeconds());
+	    	window.draw(bg);
+		    window.draw(vecBody.at(0).sprite);
+		    window.draw(text);//рисую этот текст
+		    timeLastUpdate -= dt;  
+		    for (int i = 1; i != vecBody.size(); i++)
+		    {
+		    	NewPosition(vecBody, i); 
+		    	//for
+                char str[10];
+                sprintf_s(str, "%s %d", "FPS: ", fps);
+				text.setString(str);//задает строку тексту
+		    	if (CollisionBalls(vecBody, i))		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+			        window.draw(vecBody[i].sprite);	
+		    	}		
+	    	}
+		    window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+//#define _CRT_SECURE_NO_WARNINGS
+
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384*10e-11; // м^3 / (кг * с^2)
+const Time dt = seconds(1.0f / 70.0f);
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    mars.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+Vector2i mousePositionClick;
+
+
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+void StartClick(RenderWindow& window)
+{
+	mousePositionClick = Mouse::getPosition(window);//забираем коорд курсора
+	
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Vector2i mousePositionReleased = Mouse::getPosition(window);//забираем коорд курсора
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = 0.005 * Distance(dx, dy);
+	InitializeBody(body, 1.97e23, dx/4, dy/4, radius, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+	vecBody.push_back(body);
+
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, FigureCircle& body, vector<Texture>& setTexture)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, body, setTexture);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	for (int k = 0; k !=vecBody.size(); k++)
+	{
+		if (k == i)
+		{
+			continue;
+		}
+	    Vector2d sun = Vector2d(vecBody[k].pos.x, vecBody[k].pos.y);
+	    Vector2d earthConst = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	    Vector2d delta = DeltaPosition(sun, earthConst);
+	    double distance = Distance(delta.x, delta.y);
+	    float dt = 0.1;
+	    double angle = atan2(delta.y, delta.x);
+	    double a =  dt  * gravConst * vecBody.at(k).weight / (pow( distaneES *  distance, 2));
+	    //cout << "Volaciti = " << a << endl;
+	    vecBody.at(i).v.vx += a * cos(angle);
+	    vecBody.at(i).v.vy += a * sin(angle);
+	    vecBody.at(i).pos.x = earthConst.x + vecBody.at(i).v.vx * dt;
+	    vecBody.at(i).pos.y = earthConst.y + vecBody.at(i).v.vy * dt;
+	}
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;//шрифт 
+    fontHelvetic.loadFromFile(nameFile);//передаем нашему шрифту файл шрифта
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+    Text text("", font, 20);
+    text.setColor(Color::White);
+    text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+    text.setPosition(10 , 10 );
+	return text;
+
+}
+
+Vector2f GetSpriteCenter (const Sprite& object)
+{
+	FloatRect center = object.getGlobalBounds();
+	return Vector2f(center.left + center.width/2.f, center.top + center.height/2.f);
+}
+
+Vector2f GetSpriteSize(const Sprite& object)
+{
+	IntRect originalSize = object.getTextureRect();
+	Vector2f scale = object.getScale();
+	return Vector2f(originalSize.width * scale.x, originalSize.height * scale.y);
+}
+
+bool CollisionImages(vector<FigureCircle>const& object, int i)
+{
+	Vector2f obj0Size = GetSpriteSize(object[0].sprite);
+	Vector2f obj1Size = GetSpriteSize(object[i].sprite);
+	float radius0 = (obj0Size.x + obj0Size.y) / 5;
+	float radius1 = (obj1Size.x + obj1Size.y) / 5;
+	Vector2f distance = GetSpriteCenter(object[0].sprite) - GetSpriteCenter(object[i].sprite);
+	return ((distance.x * distance.x + distance.y * distance.y) <= (radius0 + radius1) * (radius0 + radius1));
+}
+
+void DrowSprite(RenderWindow& window, FigureCircle& vecBody)
+{
+	vecBody.sprite.setPosition(vecBody.pos.x, vecBody.pos.y);
+	window.draw(vecBody.sprite);	
+}
+
+String textFps(Time&const timeLastUpdate)
+{
+	int fps = 1.f / (timeLastUpdate.asSeconds());
+	char str[10];
+	sprintf_s(str, "%s %d", "FPS: ", fps);
+	return str;
+}
+
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture = SetTexture();
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetSprite(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 20.98e24, 0, 0, 0.15, 500, 350, setTexture[1]);
+	InitializeBody(vecBody[1], 5.97e24, 2.5, 2.5, 0.05, 650, 200, setTexture[2]);
+
+	Clock clock;
+    Time timeLastUpdate = Time::Zero;
+
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, body, setTexture);
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 
+		    text.setString(textFps(timeLastUpdate));//задает строку тексту
+
+	    	window.draw(bg);
+		    window.draw(vecBody.at(0).sprite);
+		    window.draw(text);//рисую этот текст
+		    timeLastUpdate -= dt;  
+		    for (int i = 1; i != vecBody.size(); i++)
+		    {
+		    	NewPosition(vecBody, i); 
+		    	//for
+		    	if (CollisionImages(vecBody, i))		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+					DrowSprite(window, vecBody[i]);
+		    	}		
+	    	}
+		    window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+//#define _CRT_SECURE_NO_WARNINGS
+
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384e1; // м^3 / (кг * с^2)
+const float FPS = 60.0f;
+const Time dt = seconds(1.0f / FPS);
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    mars.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+
+double Distance(double dx, double dy)
+{
+	return pow(dx, 2) + pow(dy, 2);
+}
+
+Vector2f mousePositionClick;
+void StartClick(RenderWindow& window)
+{
+    Vector2i pixelPos = sf::Mouse::getPosition(window);
+    mousePositionClick = window.mapPixelToCoords(pixelPos);
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, vector<Texture>& setTexture)
+{
+	Vector2i pixelPos = Mouse::getPosition(window);//забираем коорд курсора
+	Vector2f mousePositionReleased = window.mapPixelToCoords(pixelPos);
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double radius = 0.005 * sqrt(Distance(dx, dy));
+	FigureCircle body;
+	InitializeBody(body, 2, dx/3, dy/3, radius, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+	vecBody.push_back(body);
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, vector<Texture>& setTexture)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, setTexture);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	for (int k = 0; k !=vecBody.size(); k++)
+	{
+		if (k == i)
+		{
+			continue;
+		}
+	    Vector2d sun = Vector2d(vecBody[k].pos.x, vecBody[k].pos.y);
+	    Vector2d earthConst = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	    Vector2d delta = DeltaPosition(sun, earthConst);
+	    double distance = Distance(delta.x, delta.y);
+	    float dt = 0.1;
+	    double angle = atan2(delta.y, delta.x);
+		double a = 0;
+	    a = dt  * gravConst * vecBody.at(k).weight / distance;
+	    vecBody.at(i).v.vx += cos(angle) * a;
+	    vecBody.at(i).v.vy += sin(angle) * a;
+	    vecBody.at(i).pos.x = earthConst.x + vecBody.at(i).v.vx * dt;
+	    vecBody.at(i).pos.y = earthConst.y + vecBody.at(i).v.vy * dt;
+	}
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;
+    fontHelvetic.loadFromFile(nameFile);
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+    Text text("", font, 20);
+    text.setColor(Color::White);
+    text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+    text.setPosition(10 , 10 );
+	return text;
+
+}
+
+Vector2f GetSpriteCenter (const Sprite& object)
+{
+	FloatRect center = object.getGlobalBounds();
+	return Vector2f(center.left + center.width/2.f, center.top + center.height/2.f);
+}
+
+Vector2f GetSpriteSize(const Sprite& object)
+{
+	IntRect originalSize = object.getTextureRect();
+	Vector2f scale = object.getScale();
+	return Vector2f(originalSize.width * scale.x, originalSize.height * scale.y);
+}
+
+bool CollisionImages(vector<FigureCircle>const& object, int i)
+{
+	Vector2f obj0Size = GetSpriteSize(object[0].sprite);
+	Vector2f obj1Size = GetSpriteSize(object[i].sprite);
+	float radius0 = (obj0Size.x + obj0Size.y) / 5;
+	float radius1 = (obj1Size.x + obj1Size.y) / 5;
+	Vector2f distance = GetSpriteCenter(object[0].sprite) - GetSpriteCenter(object[i].sprite);
+	return ((distance.x * distance.x + distance.y * distance.y) <= (radius0 + radius1) * (radius0 + radius1));
+}
+
+void DrowSprite(RenderWindow& window, FigureCircle& vecBody)
+{
+	vecBody.sprite.setPosition(vecBody.pos.x, vecBody.pos.y);
+	window.draw(vecBody.sprite);	
+}
+
+String StrFps(Time&const timeLastUpdate)
+{
+	int fps = 1.f / (timeLastUpdate.asSeconds());
+	char str[10];
+	sprintf_s(str, "%s %d", "FPS: ", fps);
+	return str;
+}
+
+void GetPlanetCoordinateForView(View& view, float x,float y) 
+{ //функция для считывания координат игрока
+	view.setCenter(x + 100, y); //следим за игроком, передавая его координаты камере. +100 - сместили камеру по иксу вправо. эксперементируйте
+}
+
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture = SetTexture();
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetSprite(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 1000, 0, 0, 0.15, 500, 350, setTexture[1]);
+	InitializeBody(vecBody[1], 3, 2.5, 2.5, 0.05, 650, 200, setTexture[2]);
+
+	Clock clock;
+    Time timeLastUpdate = Time::Zero;
+
+	View view;
+	view.reset(FloatRect(0, 0, 1200, 700));
+	view.setViewport(FloatRect(0, 0, 1.0f, 1.0f));
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody,  setTexture);
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 		
+		    text.setString(StrFps(timeLastUpdate));
+	    	window.draw(bg);
+		    window.draw(vecBody.at(0).sprite);
+		    window.draw(text);
+			window.setView(view);
+		    timeLastUpdate -= dt;  
+		    for (int i = 0; i != vecBody.size(); i++)
+		    {
+		    	NewPosition(vecBody, i); 
+		    	if (CollisionImages(vecBody, i) && i != 0)		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+					//GetPlanetCoordinateForView(view, vecBody[0].pos.x, vecBody[0].pos.y);
+					//bg.move(vecBody[0].v.vx, vecBody[0].v.vy);
+					//bg.move();
+					//GetPlanetCoordinateForView(view, text., bg.getPosition().y);
+					DrowSprite(window, vecBody[i]);
+		    	}		
+	    	}
+		    window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+//#define _CRT_SECURE_NO_WARNINGS
+
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384e1; // м^3 / (кг * с^2)
+const float FPS = 60.0f;
+const Time dt = seconds(1.0f / FPS);
+const float dTime = 0.1;
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    mars.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+
+double Distance(double dx, double dy)
+{
+	return pow(dx, 2) + pow(dy, 2);
+}
+
+Vector2f mousePositionClick;
+void StartClick(RenderWindow& window)
+{
+    Vector2i pixelPos = sf::Mouse::getPosition(window);
+    mousePositionClick = window.mapPixelToCoords(pixelPos);
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, vector<Texture>& setTexture)
+{
+	Vector2i pixelPos = Mouse::getPosition(window);//забираем коорд курсора
+	Vector2f mousePositionReleased = window.mapPixelToCoords(pixelPos);
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double scole = 0.005 * sqrt(Distance(dx, dy));
+	FigureCircle body;
+	InitializeBody(body, 5, dx/3, dy/3, scole, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+	vecBody.push_back(body);
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, vector<Texture>& setTexture)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, setTexture);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	for (int k = 0; k !=vecBody.size(); k++)
+	{
+		if (k == i)
+		{
+			continue;
+		}
+	    Vector2d sun = Vector2d(vecBody[k].pos.x, vecBody[k].pos.y);
+	    Vector2d earthConst = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	    Vector2d delta = DeltaPosition(sun, earthConst);
+	    double distance = Distance(delta.x, delta.y);
+	    double angle = atan2(delta.y, delta.x);
+		double a = 0;
+	    a = dTime  * gravConst * vecBody.at(k).weight / distance;
+	    vecBody.at(i).v.vx += cos(angle) * a;
+	    vecBody.at(i).v.vy += sin(angle) * a;
+	    vecBody.at(i).pos.x = earthConst.x + vecBody.at(i).v.vx * dTime;
+	    vecBody.at(i).pos.y = earthConst.y + vecBody.at(i).v.vy * dTime;
+	}
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;
+    fontHelvetic.loadFromFile(nameFile);
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+    Text text("", font, 20);
+    text.setColor(Color::White);
+    text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+    text.setPosition(10 , 10 );
+	return text;
+
+}
+
+Vector2f GetSpriteCenter (const Sprite& object)
+{
+	FloatRect center = object.getGlobalBounds();
+	return Vector2f(center.left + center.width/2.f, center.top + center.height/2.f);
+}
+
+Vector2f GetSpriteSize(const Sprite& object)
+{
+	IntRect originalSize = object.getTextureRect();
+	Vector2f scale = object.getScale();
+	return Vector2f(originalSize.width * scale.x, originalSize.height * scale.y);
+}
+
+bool CollisionImages(vector<FigureCircle>const& object, int i)
+{
+	Vector2f obj0Size = GetSpriteSize(object[0].sprite);
+	Vector2f obj1Size = GetSpriteSize(object[i].sprite);
+	float radius0 = (obj0Size.x + obj0Size.y) / 5;
+	float radius1 = (obj1Size.x + obj1Size.y) / 5;
+	Vector2f distance = GetSpriteCenter(object[0].sprite) - GetSpriteCenter(object[i].sprite);
+	return ((distance.x * distance.x + distance.y * distance.y) <= (radius0 + radius1) * (radius0 + radius1));
+}
+
+void DrowSprite(RenderWindow& window, FigureCircle& vecBody)
+{
+	vecBody.sprite.setPosition(vecBody.pos.x, vecBody.pos.y);
+	window.draw(vecBody.sprite);	
+}
+
+String StrFps(Time&const timeLastUpdate)
+{
+	int fps = 1.f / (timeLastUpdate.asSeconds());
+	char str[10];
+	sprintf_s(str, "%s %d", "FPS: ", fps);
+	return str;
+}
+
+void GetPlanetCoordinateForView(View& view, float x,float y) 
+{ //функция для считывания координат игрока
+	view.setCenter(x + 100, y); //следим за игроком, передавая его координаты камере. +100 - сместили камеру по иксу вправо. эксперементируйте
+}
+
+void ConvertMapCoordsToPixelText(RenderWindow& window, Text& text, int mX, int mY)
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	text.setPosition(center.x - size.x / 2 + mX, center.y - size.y / 2 + mY);//позиция на экране
+}
+
+void ConvertMapCoordsToPixelBackground(RenderWindow& window, Sprite& bg)
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	bg.setPosition(center.x - size.x / 2 , center.y - size.y / 2 );//позиция на экране
+}
+
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture = SetTexture();
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetSprite(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 1000, 0, 0, 0.15, 500, 350, setTexture[1]);
+	InitializeBody(vecBody[1], 5, 3.5, 4.5, 0.05, 650, 200, setTexture[2]);
+
+	Clock clock;
+    Time timeLastUpdate = Time::Zero;
+
+	View view;
+	view.reset(FloatRect(0, 0, 1200, 700));
+	view.setViewport(FloatRect(0, 0, 1.0f, 1.0f));
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody,  setTexture);
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 		
+		    text.setString(StrFps(timeLastUpdate));
+			timeLastUpdate -= dt; 
+
+			ConvertMapCoordsToPixelBackground(window, bg);
+	    	window.draw(bg);
+
+		    window.draw(vecBody.at(0).sprite);
+		    
+			ConvertMapCoordsToPixelText(window, text, 10, 10);
+			window.draw(text);
+
+			window.setView(view);
+		    for (int i = 0; i != vecBody.size(); i++)
+		    {
+		    	NewPosition(vecBody, i); 
+		    	if (CollisionImages(vecBody, i) && i != 0)		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+					GetPlanetCoordinateForView(view, vecBody[0].pos.x, vecBody[0].pos.y);
+					DrowSprite(window, vecBody[i]);
+		    	}		
+	    	}
+		    window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+//#define _CRT_SECURE_NO_WARNINGS
+
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384e1; // м^3 / (кг * с^2)
+const float FPS = 60.0f;
+const Time dt = seconds(1.0f / FPS);
+const float dTime = 0.1;
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    mars.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+
+double Distance(double dx, double dy)
+{
+	return pow(dx, 2) + pow(dy, 2);
+}
+
+Vector2f mousePositionClick;
+void StartClick(RenderWindow& window)
+{
+    Vector2i pixelPos = sf::Mouse::getPosition(window);
+    mousePositionClick = window.mapPixelToCoords(pixelPos);
+}
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, vector<Texture>& setTexture)
+{
+	Vector2i pixelPos = Mouse::getPosition(window);//забираем коорд курсора
+	Vector2f mousePositionReleased = window.mapPixelToCoords(pixelPos);
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double scole = 0.005 * sqrt(Distance(dx, dy));
+	FigureCircle body;
+	InitializeBody(body, 5, dx/3, dy/3, scole, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+	vecBody.push_back(body);
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, vector<Texture>& setTexture)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if (event.type == Event::MouseButtonPressed)//если нажата кнопка мыши
+	    {	
+		    if (event.key.code == Mouse::Left)//а именно левую
+		    {
+		        StartClick(window);
+			}
+		}
+
+		if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, setTexture);
+			}
+		}
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	for (int k = 0; k !=vecBody.size(); k++)
+	{
+		if (k == i)
+		{
+			continue;
+		}
+	    Vector2d sun = Vector2d(vecBody[k].pos.x, vecBody[k].pos.y);
+	    Vector2d earthConst = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	    Vector2d delta = DeltaPosition(sun, earthConst);
+	    double distance = Distance(delta.x, delta.y);
+	    double angle = atan2(delta.y, delta.x);
+		double a = 0;
+	    a = dTime  * gravConst * vecBody.at(k).weight / distance;
+	    vecBody.at(i).v.vx += cos(angle) * a;
+	    vecBody.at(i).v.vy += sin(angle) * a;
+	    vecBody.at(i).pos.x = earthConst.x + vecBody.at(i).v.vx * dTime;
+	    vecBody.at(i).pos.y = earthConst.y + vecBody.at(i).v.vy * dTime;
+	}
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;
+    fontHelvetic.loadFromFile(nameFile);
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+    Text text("", font, 20);
+    text.setColor(Color::White);
+    text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+    text.setPosition(10 , 10 );
+	return text;
+
+}
+
+Vector2f GetSpriteCenter (const Sprite& object)
+{
+	FloatRect center = object.getGlobalBounds();
+	return Vector2f(center.left + center.width/2.f, center.top + center.height/2.f);
+}
+
+Vector2f GetSpriteSize(const Sprite& object)
+{
+	IntRect originalSize = object.getTextureRect();
+	Vector2f scale = object.getScale();
+	return Vector2f(originalSize.width * scale.x, originalSize.height * scale.y);
+}
+
+bool CollisionImages(vector<FigureCircle>const& object, int i)
+{
+	Vector2f obj0Size = GetSpriteSize(object[0].sprite);
+	Vector2f obj1Size = GetSpriteSize(object[i].sprite);
+	float radius0 = (obj0Size.x + obj0Size.y) / 5;
+	float radius1 = (obj1Size.x + obj1Size.y) / 5;
+	Vector2f distance = GetSpriteCenter(object[0].sprite) - GetSpriteCenter(object[i].sprite);
+	return ((distance.x * distance.x + distance.y * distance.y) <= (radius0 + radius1) * (radius0 + radius1));
+}
+
+void DrowSprite(RenderWindow& window, FigureCircle& vecBody)
+{
+	vecBody.sprite.setPosition(vecBody.pos.x, vecBody.pos.y);
+	window.draw(vecBody.sprite);	
+}
+
+String StrFps(Time&const timeLastUpdate)
+{
+	int fps = 1.f / (timeLastUpdate.asSeconds());
+	char str[10];
+	sprintf_s(str, "%s %d", "FPS: ", fps);
+	return str;
+}
+
+void GetPlanetCoordinateForView(View& view, float x,float y) 
+{ 
+	view.setCenter(x + 100, y); 
+}
+
+void ConvertMapCoordsToPixelText(RenderWindow& window, Text& text, int mX, int mY)
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	text.setPosition(center.x - size.x / 2 + mX, center.y - size.y / 2 + mY);//позиция на экране
+}
+
+void ConvertMapCoordsToPixelBackground(RenderWindow& window, Sprite& bg)
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	bg.setPosition(center.x - size.x / 2 , center.y - size.y / 2 );//позиция на экране
+}
+
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture = SetTexture();
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetSprite(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 1000, 0, 0, 0.15, 500, 350, setTexture[1]);
+	InitializeBody(vecBody[1], 5, 3.5, 4.5, 0.05, 650, 200, setTexture[2]);
+
+	Clock clock;
+    Time timeLastUpdate = Time::Zero;
+
+	View view;
+	view.reset(FloatRect(0, 0, 1200, 700));
+	view.setViewport(FloatRect(0, 0, 1.0f, 1.0f));
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody,  setTexture);
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 		
+		    text.setString(StrFps(timeLastUpdate));
+			timeLastUpdate -= dt; 
+
+			ConvertMapCoordsToPixelBackground(window, bg);
+	    	window.draw(bg);
+
+		    window.draw(vecBody.at(0).sprite);
+		    
+			ConvertMapCoordsToPixelText(window, text, 10, 10);
+			window.draw(text);
+
+			window.setView(view);
+		    for (int i = 0; i != vecBody.size(); i++)
+		    {
+		    	NewPosition(vecBody, i); 
+		    	if (CollisionImages(vecBody, i) && i != 0)		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+					GetPlanetCoordinateForView(view, vecBody[0].pos.x, vecBody[0].pos.y);
+					DrowSprite(window, vecBody[i]);
+		    	}		
+	    	}
+		    window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+//#define _CRT_SECURE_NO_WARNINGS
+
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const int distaneES = 750000; //один пиксель 750 000 км 
+const double gravConst = 6.67384e1; // м^3 / (кг * с^2)
+const float FPS = 60.0f;
+const Time dt = seconds(1.0f / FPS);
+const float dTime = 0.1;
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    mars.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+
+double Distance(double dx, double dy)
+{
+	return pow(dx, 2) + pow(dy, 2);
+}
+
+Vector2f mousePositionClick;
+/*void StartClick(RenderWindow& window)
+{
+    Vector2i pixelPos = sf::Mouse::getPosition(window);
+    mousePositionClick = window.mapPixelToCoords(pixelPos);
+}*/
+
+void EndClick(RenderWindow& window, vector<FigureCircle>& vecBody, vector<Texture>& setTexture)
+{
+	Vector2i pixelPos = Mouse::getPosition(window);//забираем коорд курсора
+	Vector2f mousePositionReleased = window.mapPixelToCoords(pixelPos);
+	double dx = mousePositionClick.x-mousePositionReleased.x;
+	double dy = mousePositionClick.y-mousePositionReleased.y;
+	double scole = 0.005 * sqrt(Distance(dx, dy));
+	FigureCircle body;
+	InitializeBody(body, 5, dx/3, dy/3, scole, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+	vecBody.push_back(body);
+}
+
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, vector<Texture>& setTexture, bool& isClick, bool& isSetBody, bool& setSpeedBody)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if ((event.type == Event::MouseButtonPressed) && (event.key.code == Mouse::Left))//если нажата кнопка мыши
+	    {	
+		    if (!isClick && !isSetBody)//а именно левую
+		    {
+		        Vector2i pixelPos = sf::Mouse::getPosition(window);
+                mousePositionClick = window.mapPixelToCoords(pixelPos);
+				isClick = true;
+			}
+			else if(!isSetBody)
+			{
+				isClick = false;
+				isSetBody = true;
+			}
+			else
+			{
+				setSpeedBody = true;
+			}
+
+		}
+
+		/*if (event.type == Event::MouseButtonReleased)//если отпустили кнопка
+	    {
+		    if (event.key.code == Mouse::Left) //а именно левую
+		    {
+		        EndClick(window, vecBody, setTexture);
+			}
+		}*/
+		
+	}
+
+}
+
+bool CollisionBalls(vector<FigureCircle>const& vecBody, int i)
+{
+	return vecBody.at(i).sprite.getGlobalBounds().intersects(vecBody.at(0).sprite.getGlobalBounds());
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	for (int k = 0; k !=vecBody.size(); k++)
+	{
+		if (k == i)
+		{
+			continue;
+		}
+	    Vector2d sun = Vector2d(vecBody[k].pos.x, vecBody[k].pos.y);
+	    Vector2d earthConst = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	    Vector2d delta = DeltaPosition(sun, earthConst);
+	    double distance = Distance(delta.x, delta.y);
+	    double angle = atan2(delta.y, delta.x);
+		double a = 0;
+	    a = dTime  * gravConst * vecBody.at(k).weight / distance;
+	    vecBody.at(i).v.vx += cos(angle) * a;
+	    vecBody.at(i).v.vy += sin(angle) * a;
+	    vecBody.at(i).pos.x = earthConst.x + vecBody.at(i).v.vx * dTime;
+	    vecBody.at(i).pos.y = earthConst.y + vecBody.at(i).v.vy * dTime;
+	}
+	vecBody.at(i).sprite.setPosition(vecBody.at(i).pos.x, vecBody.at(i).pos.y);	
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;
+    fontHelvetic.loadFromFile(nameFile);
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+    Text text("", font, 20);
+    text.setColor(Color::White);
+    text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+    text.setPosition(10 , 10 );
+	return text;
+
+}
+
+Vector2f GetSpriteCenter(const Sprite& object)
+{
+	FloatRect center = object.getGlobalBounds();
+	return Vector2f(center.left + center.width/2.f, center.top + center.height/2.f);
+}
+
+Vector2f GetSpriteSize(const Sprite& object)
+{
+	IntRect originalSize = object.getTextureRect();
+	Vector2f scale = object.getScale();
+	return Vector2f(originalSize.width * scale.x, originalSize.height * scale.y);
+}
+
+bool CollisionImages(vector<FigureCircle>const& object, int i)
+{
+	Vector2f obj0Size = GetSpriteSize(object[0].sprite);
+	Vector2f obj1Size = GetSpriteSize(object[i].sprite);
+	float radius0 = (obj0Size.x + obj0Size.y) / 5;
+	float radius1 = (obj1Size.x + obj1Size.y) / 5;
+	Vector2f distance = GetSpriteCenter(object[0].sprite) - GetSpriteCenter(object[i].sprite);
+	return ((distance.x * distance.x + distance.y * distance.y) <= (radius0 + radius1) * (radius0 + radius1));
+}
+
+void DrowSprite(RenderWindow& window, FigureCircle& vecBody)
+{
+	vecBody.sprite.setPosition(vecBody.pos.x, vecBody.pos.y);
+	window.draw(vecBody.sprite);	
+}
+
+String StrFps(Time&const timeLastUpdate)
+{
+	int fps = 1.f / (timeLastUpdate.asSeconds());
+	char str[10];
+	sprintf_s(str, "%s %d", "FPS: ", fps);
+	return str;
+}
+
+void GetPlanetCoordinateForView(View& view, float x,float y) 
+{ 
+	view.setCenter(x + 100, y); 
+}
+
+void ConvertMapCoordsToPixelText(RenderWindow& window, Text& text, int mX, int mY)
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	text.setPosition(center.x - size.x / 2 + mX, center.y - size.y / 2 + mY);//позиция на экране
+}
+
+void ConvertMapCoordsToPixelBackground(RenderWindow& window, Sprite& bg)
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	bg.setPosition(center.x - size.x / 2 , center.y - size.y / 2 );//позиция на экране
+}
+
+Vector2f MausePosition(RenderWindow& window)
+{
+	Vector2i pixelPos = sf::Mouse::getPosition(window);
+	return Vector2f(window.mapPixelToCoords(pixelPos));
+}
+
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture = SetTexture();
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetSprite(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 1000, 0, 0, 0.15, 500, 350, setTexture[1]);
+	InitializeBody(vecBody[1], 5, 3.5, 4.5, 0.05, 650, 200, setTexture[2]);
+
+	Clock clock;
+    Time timeLastUpdate = Time::Zero;
+
+	View view;
+	view.reset(FloatRect(0, 0, 1200, 700));
+	view.setViewport(FloatRect(0, 0, 1.0f, 1.0f));
+
+	bool isClick = false;
+	bool isSetBody = false;
+	bool setSpeedBody = false;
+	while (window.isOpen())
+	{     
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 		
+		    text.setString(StrFps(timeLastUpdate));
+			timeLastUpdate -= dt; 
+
+			ConvertMapCoordsToPixelBackground(window, bg);
+	    	window.draw(bg);
+
+		    window.draw(vecBody.at(0).sprite);
+
+		    ProcessEvents(window, vecBody,  setTexture, isClick, isSetBody, setSpeedBody);
+
+			ConvertMapCoordsToPixelText(window, text, 10, 10);
+			window.draw(text);
+
+			if (isClick || isSetBody || setSpeedBody)
+		    {
+				if (isClick)
+				{
+				    Vector2f mausPosition = MausePosition(window);
+					body.sprite = SetSprite(setTexture[2]);
+				    double scale = sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)) * 0.001;
+				    body.sprite.scale(scale, scale);
+				    body.sprite.setPosition(mousePositionClick.x, mousePositionClick.y);
+				    body.sprite.setOrigin(sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)), sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)));
+				    window.draw(body.sprite);
+				}
+				else if (isSetBody)
+				{
+					window.draw(body.sprite);
+					//cout << "SetBody" << endl;
+					Sprite newBody = body.sprite;
+					body.sprite.getTexture() -> getSize();
+					Vector2f mausPosition = MausePosition(window);
+					Vertex line[] =
+					{
+				        Vertex(GetSpriteCenter(newBody)),
+					    Vertex(Vector2f(mausPosition.x, mausPosition.y))
+					};
+					window.draw(line, 3, Lines);
+					if (setSpeedBody)
+					{
+						isClick = false;
+						isSetBody = false;
+						setSpeedBody = false;
+						cout << "dfg" << endl;
+					}
+				}
+			    /*CircleShape circle;
+			    circle.setRadius(sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)));
+			    circle.setFillColor(Color::Black);
+				circle.setOrigin(sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)), sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)));
+			    circle.setPosition(mousePositionClick.x, mousePositionClick.y);
+			    window.draw(circle);*/
+			    //isClick = false;
+		    }
+
+		    for (int i = 0; i != vecBody.size(); i++)
+		    {
+		    	NewPosition(vecBody, i); 
+		    	if (CollisionImages(vecBody, i) && i != 0)		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+					GetPlanetCoordinateForView(view, vecBody[0].pos.x, vecBody[0].pos.y);
+					DrowSprite(window, vecBody[i]);
+		    	}		
+	    	}
+			window.setView(view);
+		    window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+//#define _CRT_SECURE_NO_WARNINGS
+
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const double gravConst = 6.67384e1; // м^3 / (кг * с^2)
+const float FPS = 60.0f;
+const Time dt = seconds(1.0f / FPS);
+const float deltaTime = 0.1;
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    mars.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+
+double Distance(double dx, double dy)
+{
+	return pow(dx, 2) + pow(dy, 2);
+}
+
+Vector2f mousePositionClick;
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, bool& isClick, bool& isSetBody, bool& isPushBody)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if ((event.type == Event::MouseButtonPressed) && (event.key.code == Mouse::Left))//если нажата кнопка мыши
+	    {	
+		    if (!isClick && !isSetBody)//а именно левую
+		    {
+		        Vector2i pixelPos = sf::Mouse::getPosition(window);
+                mousePositionClick = window.mapPixelToCoords(pixelPos);
+				isClick = true;
+			}
+			else if(!isSetBody)
+			{
+				isClick = false;
+				isSetBody = true;
+			}
+			else
+			{
+				isPushBody = true;
+			}
+
+		}
+	
+	}
+
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	for (int k = 0; k !=vecBody.size(); k++)
+	{
+		if (k == i)
+		{
+			continue;
+		}
+	    Vector2d sun = Vector2d(vecBody[k].pos.x, vecBody[k].pos.y);
+	    Vector2d earthConst = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	    Vector2d delta = DeltaPosition(sun, earthConst);
+	    double distance = Distance(delta.x, delta.y);
+	    double angle = atan2(delta.y, delta.x);
+		double a;
+	    a =  deltaTime * gravConst * vecBody.at(k).weight / distance;
+	    vecBody.at(i).v.vx += cos(angle) * a;
+	    vecBody.at(i).v.vy += sin(angle) * a;
+	    vecBody.at(i).pos.x = earthConst.x + vecBody.at(i).v.vx * deltaTime;
+	    vecBody.at(i).pos.y = earthConst.y + vecBody.at(i).v.vy * deltaTime;
+	}
+	vecBody.at(i).sprite.move(vecBody.at(i).v.vx, vecBody.at(i).v.vy);	
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;
+    fontHelvetic.loadFromFile(nameFile);
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+    Text text("", font, 20);
+    text.setColor(Color::White);
+    text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+    text.setPosition(10 , 10 );
+	return text;
+
+}
+
+Vector2f GetSpriteCenter(const Sprite& object)
+{
+	FloatRect center = object.getGlobalBounds();
+	return Vector2f(center.left + center.width/2.f, center.top + center.height/2.f);
+}
+
+Vector2f GetSpriteSize(const Sprite& object)
+{
+	IntRect originalSize = object.getTextureRect();
+	Vector2f scale = object.getScale();
+	return Vector2f(originalSize.width * scale.x, originalSize.height * scale.y);
+}
+
+bool CollisionImages(vector<FigureCircle>const& object, int i)
+{
+	Vector2f obj0Size = GetSpriteSize(object[0].sprite);
+	Vector2f obj1Size = GetSpriteSize(object[i].sprite);
+	float radius0 = (obj0Size.x + obj0Size.y) / 5;
+	float radius1 = (obj1Size.x + obj1Size.y) / 5;
+	Vector2f distance = GetSpriteCenter(object[0].sprite) - GetSpriteCenter(object[i].sprite);
+	return ((distance.x * distance.x + distance.y * distance.y) <= (radius0 + radius1) * (radius0 + radius1));
+}
+
+void DrowSprite(RenderWindow& window, FigureCircle& vecBody)
+{
+	vecBody.sprite.setPosition(vecBody.pos.x, vecBody.pos.y);
+	window.draw(vecBody.sprite);	
+}
+
+String StrFps(Time&const timeLastUpdate)
+{
+	int fps = 1.f / (timeLastUpdate.asSeconds());
+	char str[10];
+	sprintf_s(str, "%s %d", "FPS: ", fps);
+	return str;
+}
+
+void GetPlanetCoordinateForView(View& view, float x,float y) 
+{ 
+	view.setCenter(x + 100, y); 
+}
+
+void ConvertMapCoordsToPixelText(RenderWindow& window, Text& text, int mX, int mY)
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	text.setPosition(center.x - size.x / 2 + mX, center.y - size.y / 2 + mY);//позиция на экране
+}
+
+void ConvertMapCoordsToPixelBackground(RenderWindow& window, Sprite& bg)
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	bg.setPosition(center.x - size.x / 2 , center.y - size.y / 2 );//позиция на экране
+}
+
+Vector2f MausePosition(RenderWindow& window)
+{
+	Vector2i pixelPos = sf::Mouse::getPosition(window);
+	return Vector2f(window.mapPixelToCoords(pixelPos));
+}
+
+void DrawLine(RenderWindow& window, Sprite& body)
+{
+    body.getTexture() -> getSize();
+	Vector2f mousePosition = MausePosition(window);
+	Vertex line[] =
+	{
+	    Vertex(GetSpriteCenter(body)),
+		Vertex(Vector2f(mousePosition.x, mousePosition.y))
+	};
+	window.draw(line, 3, Lines);
+}
+
+Vector2f GetMousePosition(RenderWindow& window)
+{
+	return Vector2f(MausePosition(window));
+}
+
+void NewBody(RenderWindow& window, vector<FigureCircle>& vecBody, vector<Texture>& setTexture, Sprite& bodySprite)
+{						
+	Vector2f mousePositionEndClick = GetMousePosition(window);
+	FigureCircle body;
+	float vx = (mousePositionClick.x - mousePositionEndClick.x) / 10;
+	float vy = (mousePositionClick.y - mousePositionEndClick.y) / 10;
+    InitializeBody(body, 5, vx, vy, bodySprite.getScale().x, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+    vecBody.push_back(body);
+}
+
+Sprite SetSpriteNewBody(RenderWindow& window, FigureCircle& body, vector<Texture>& setTexture)
+{
+
+	Vector2f mausPosition = GetMousePosition(window);
+	body.sprite = SetSprite(setTexture[2]);
+    double scale = sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)) * 0.001;
+	body.sprite.scale(scale, scale);
+	body.sprite.setPosition(mousePositionClick.x, mousePositionClick.y);
+	body.sprite.setOrigin(sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)), sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)));
+	return body.sprite;
+}
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture = SetTexture();
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetSprite(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 2000, 0, 0, 0.15, 500, 350, setTexture[1]);
+	InitializeBody(vecBody[1], 5, 3.5, 4.5, 0.05, 650, 200, setTexture[2]);
+
+	Clock clock;
+    Time timeLastUpdate = Time::Zero;
+
+	/*View view;
+	view.reset(FloatRect(0, 0, 1200, 700));
+	view.setViewport(FloatRect(0, 0, 1.0f, 1.0f));*/
+
+	bool isClick = false;
+	bool isSetBody = false;
+	bool isPushBody = false;
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, isClick, isSetBody, isPushBody);
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 		
+		    text.setString(StrFps(timeLastUpdate));
+			timeLastUpdate -= dt; 
+
+			//ConvertMapCoordsToPixelBackground(window, bg);
+	    	window.draw(bg);
+
+		    window.draw(vecBody.at(0).sprite);
+			//ConvertMapCoordsToPixelText(window, text, 10, 10);
+			//window.setView(view);
+			window.draw(text);
+
+			if (isClick || isSetBody || isPushBody)
+		    {
+				if (isClick)
+				{
+					Sprite newSpriteBody = SetSpriteNewBody(window, body, setTexture);
+					window.draw(newSpriteBody);
+				}
+				else if (isSetBody)
+				{
+					window.draw(body.sprite);
+					DrawLine(window, body.sprite);
+
+					if (isPushBody)
+					{
+						NewBody(window, vecBody, setTexture, body.sprite);
+						isClick = false;
+						isSetBody = false;
+						isPushBody = false;
+					}
+				}
+		    }
+
+		    for (int i = 1; i != vecBody.size(); i++)
+		    {
+		    	NewPosition(vecBody, i); 
+		    	if (CollisionImages(vecBody, i) && i != 0)		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+					//GetPlanetCoordinateForView(view, vecBody[0].pos.x, vecBody[0].pos.y);
+					DrowSprite(window, vecBody[i]);
+		    	}		
+	    	}
+		    window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+//#define _CRT_SECURE_NO_WARNINGS
+
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const double gravConst = 6.67384e1; // м^3 / (кг * с^2)
+const float FPS = 60.0f;
+const Time dt = seconds(1.0f / FPS);
+const float deltaTime = 0.1;
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+Texture LoadTexture(String fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+	}
+	return background;
+}
+
+Sprite SetSprite(Texture const& texture)
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+vector<Texture> SetTexture()
+{
+	vector<Texture> setTexture;
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun;
+	sun.loadFromFile("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth;
+    earth.loadFromFile("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars;
+    mars.loadFromFile("img/mars.png");
+	setTexture.push_back(mars);
+
+	return setTexture;
+}
+
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scole,  int posX, int posY, Texture const& tx)
+{
+	body.sprite = SetSprite(tx);
+	body.sprite.scale(scole, scole);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+
+double Distance(double dx, double dy)
+{
+	return pow(dx, 2) + pow(dy, 2);
+}
+
+Vector2f mousePositionClick;
+void ProcessEvents(RenderWindow& window, vector<FigureCircle>& vecBody, bool& isClick, bool& isSetBody, bool& isPushBody)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+
+		if ((event.type == Event::MouseButtonPressed) && (event.key.code == Mouse::Left))//если нажата кнопка мыши
+	    {	
+		    if (!isClick && !isSetBody)//а именно левую
+		    {
+		        Vector2i pixelPos = sf::Mouse::getPosition(window);
+                mousePositionClick = window.mapPixelToCoords(pixelPos);
+				isClick = true;
+			}
+			else if(!isSetBody)
+			{
+				isClick = false;
+				isSetBody = true;
+			}
+			else
+			{
+				isPushBody = true;
+			}
+
+		}
+	
+	}
+
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2)
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	for (int k = 0; k !=vecBody.size(); k++)
+	{
+		if (k == i)
+		{
+			continue;
+		}
+	    Vector2d sun = Vector2d(vecBody[k].pos.x, vecBody[k].pos.y);
+	    Vector2d earthConst = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y); 
+	    Vector2d delta = DeltaPosition(sun, earthConst);
+	    double distance = Distance(delta.x, delta.y);
+		double angle = atan2(delta.y, delta.x);
+		double a;
+	    a =  deltaTime * gravConst * vecBody[k].weight / distance;
+	    vecBody[i].v.vx += cos(angle) * a;
+	    vecBody[i].v.vy += sin(angle) * a;
+	    vecBody[i].pos.x = earthConst.x + vecBody[i].v.vx * deltaTime;
+	    vecBody[i].pos.y = earthConst.y + vecBody[i].v.vy * deltaTime;
+	}	
+	vecBody[i].sprite.move(vecBody[i].v.vx, vecBody[i].v.vy);
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;
+    fontHelvetic.loadFromFile(nameFile);
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+    Text text("", font, 20);
+    text.setColor(Color::White);
+    text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+    text.setPosition(10 , 10 );
+	return text;
+
+}
+
+Vector2f GetSpriteCenter(const Sprite& object)
+{
+	FloatRect center = object.getGlobalBounds();
+	return Vector2f(center.left + center.width/2.f, center.top + center.height/2.f);
+}
+
+Vector2f GetSpriteSize(const Sprite& object)
+{
+	IntRect originalSize = object.getTextureRect();
+	Vector2f scale = object.getScale();
+	return Vector2f(originalSize.width * scale.x, originalSize.height * scale.y);
+}
+
+bool CollisionImages(vector<FigureCircle>const& object, int i)
+{
+	Vector2f obj0Size = GetSpriteSize(object[0].sprite);
+	Vector2f obj1Size = GetSpriteSize(object[i].sprite);
+	float radius0 = (obj0Size.x + obj0Size.y) / 5;
+	float radius1 = (obj1Size.x + obj1Size.y) / 5;
+	Vector2f distance = GetSpriteCenter(object[0].sprite) - GetSpriteCenter(object[i].sprite);
+	return ((distance.x * distance.x + distance.y * distance.y) <= (radius0 + radius1) * (radius0 + radius1));
+}
+
+void DrowSprite(RenderWindow& window, FigureCircle& vecBody)
+{
+	vecBody.sprite.setPosition(vecBody.pos.x, vecBody.pos.y);
+	window.draw(vecBody.sprite);	
+}
+
+String StrFps(Time&const timeLastUpdate)
+{
+	int fps = 1.f / (timeLastUpdate.asSeconds());
+	char str[10];
+	sprintf_s(str, "%s %d", "FPS: ", fps);
+	return str;
+}
+
+void GetPlanetCoordinateForView(View& view, float x,float y) 
+{ 
+	view.setCenter(x + 100, y); 
+}
+
+void ConvertMapCoordsToPixelText(RenderWindow& window, Text& text, int mX, int mY)
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	text.setPosition(center.x - size.x / 2 + mX, center.y - size.y / 2 + mY);//позиция на экране
+}
+
+void ConvertMapCoordsToPixelBackground(RenderWindow& window, Sprite& bg)
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	bg.setPosition(center.x - size.x / 2 , center.y - size.y / 2 );//позиция на экране
+}
+
+Vector2f MausePosition(RenderWindow& window)
+{
+	Vector2i pixelPos = sf::Mouse::getPosition(window);
+	return Vector2f(window.mapPixelToCoords(pixelPos));
+}
+
+void DrawLine(RenderWindow& window, Sprite& body)
+{
+    body.getTexture() -> getSize();
+	Vector2f mousePosition = MausePosition(window);
+	Vertex line[] =
+	{
+	    Vertex(GetSpriteCenter(body)),
+		Vertex(Vector2f(mousePosition.x, mousePosition.y))
+	};
+	window.draw(line, 3, Lines);
+}
+
+Vector2f GetMousePosition(RenderWindow& window)
+{
+	return Vector2f(MausePosition(window));
+}
+
+void NewBody(RenderWindow& window, vector<FigureCircle>& vecBody, vector<Texture>& setTexture, Sprite& bodySprite)
+{						
+	Vector2f mousePositionEndClick = GetMousePosition(window);
+	FigureCircle body;
+	float vx = (mousePositionClick.x - mousePositionEndClick.x) / 10;
+	float vy = (mousePositionClick.y - mousePositionEndClick.y) / 10;
+    InitializeBody(body, 5, vx, vy, bodySprite.getScale().x, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+    vecBody.push_back(body);
+}
+
+Sprite SetSpriteNewBody(RenderWindow& window, FigureCircle& body, vector<Texture>& setTexture)
+{
+
+	Vector2f mausPosition = GetMousePosition(window);
+	body.sprite = SetSprite(setTexture[2]);
+    double scale = sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)) * 0.001;
+	body.sprite.scale(scale, scale);
+	body.sprite.setPosition(mousePositionClick.x, mousePositionClick.y);
+	body.sprite.setOrigin(sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)), sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)));
+	return body.sprite;
+}
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture = SetTexture();
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetSprite(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 2000, 0, 0, 0.15, 500, 350, setTexture[1]);
+	InitializeBody(vecBody[1], 5, 0, 0, 0.05, 650, 200, setTexture[2]);
+
+	Clock clock;
+    Time timeLastUpdate = Time::Zero;
+
+	/*View view;
+	view.reset(FloatRect(0, 0, 1200, 700));
+	view.setViewport(FloatRect(0, 0, 1.0f, 1.0f));*/
+
+	bool isClick = false;
+	bool isSetBody = false;
+	bool isPushBody = false;
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, vecBody, isClick, isSetBody, isPushBody);
+        while (timeLastUpdate > dt) 
+		{  
+    		window.clear(Color::White); 		
+		    text.setString(StrFps(timeLastUpdate));
+			timeLastUpdate -= dt; 
+
+			//ConvertMapCoordsToPixelBackground(window, bg);
+	    	window.draw(bg);
+
+		    window.draw(vecBody.at(0).sprite);
+			//ConvertMapCoordsToPixelText(window, text, 10, 10);
+			//window.setView(view);
+			window.draw(text);
+
+			if (isClick || isSetBody || isPushBody)
+		    {
+				if (isClick)
+				{
+					Sprite newSpriteBody = SetSpriteNewBody(window, body, setTexture);
+					window.draw(newSpriteBody);
+				}
+				else if (isSetBody)
+				{
+					window.draw(body.sprite);
+					DrawLine(window, body.sprite);
+
+					if (isPushBody)
+					{
+						NewBody(window, vecBody, setTexture, body.sprite);
+						isClick = false;
+						isSetBody = false;
+						isPushBody = false;
+					}
+				}
+		    }
+
+		    for (int i = 1; i != vecBody.size(); i++)
+		    {
+		    	NewPosition(vecBody, i); 
+		    	if (CollisionImages(vecBody, i) && i != 0)		
+		    	{	
+			    	vecBody.erase(vecBody.begin() + i);
+				    i = 0;
+			    }
+		    	else
+		    	{	
+					//GetPlanetCoordinateForView(view, vecBody[0].pos.x, vecBody[0].pos.y);
+					DrowSprite(window, vecBody[i]);
+		    	}		
+	    	}
+		    window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const double gravConst = 6.67384e1; 
+const float FPS = 60.0f;
+const Time dt = seconds(1.0f / FPS);
+const float deltaTime = 0.1f;
+const double pi = 3.14;
+const double density = 0.002;
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+enum ClickState
+{
+	CS_NIL,
+	CS_CLICK,
+	CS_SET_BODY,
+	CS_PUSH_BODY,
+};
+
+Texture LoadTexture(String const& fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+		ExitProcess(0);
+	}
+	return background;
+}
+
+//Sprite SetSprite(Texture const& texture);
+
+Sprite SetTexture(Texture const& texture)//Setetxture
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+void PushInVectorTexture(vector<Texture>& setTexture) //Переименовать
+{
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun = LoadTexture("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth = LoadTexture("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars = LoadTexture("img/mars.png");
+	setTexture.push_back(mars);
+}
+
+//InitializeBody(vecBody[0], 4000, 0, 0, 0.15, 500, 350, setTexture[1]);
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scale, float posX, float posY, Texture const& tx)
+{
+	body.sprite = SetTexture(tx);
+	body.sprite.scale(scale, scale);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+Vector2f mousePositionClick;
+void ProcessEvents(RenderWindow& window, ClickState& clickState, float& zoom, View& view)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+		
+       if(event.type == sf::Event::MouseWheelScrolled)
+	   {
+		   if(event.mouseWheelScroll.delta > 0)
+		   {
+			   zoom += 0.01f;
+		   }
+		   else
+		   {
+			   zoom -= 0.01f;
+		   }
+		   view.zoom(zoom);
+		   zoom = 1.0f;
+	   }
+
+		if ((event.type == Event::MouseButtonPressed) && (event.key.code == Mouse::Left))//если нажата кнопка мыши
+		{	
+			if ((clickState != CS_CLICK) && (clickState != CS_SET_BODY))
+			{
+				Vector2i pixelPos = sf::Mouse::getPosition(window);
+				mousePositionClick = window.mapPixelToCoords(pixelPos);
+				clickState = CS_CLICK;
+			}
+			else if (clickState == CS_CLICK)
+			{
+				clickState = CS_SET_BODY;
+			}
+			else
+			{
+				clickState = CS_PUSH_BODY;
+			}
+
+		}
+
+	}
+
+}
+
+Vector2d DeltaPosition(Vector2d const& bod1, Vector2d const& body2) //Vector2d-Vector2d
+{
+	return Vector2d(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	for (int k = 0; k !=vecBody.size(); k++)
+	{
+		if (k == i)
+		{
+			continue;
+		}
+		Vector2d planet = Vector2d(vecBody[k].pos.x, vecBody[k].pos.y);
+		Vector2d mainPlanet = Vector2d(vecBody[i].pos.x, vecBody[i].pos.y);
+		Vector2d delta = DeltaPosition(planet, mainPlanet);
+		double distance = Distance(delta.x, delta.y);
+		double angle = atan2(delta.y, delta.x);
+		double a =  deltaTime * gravConst * vecBody[k].weight / pow(distance, 2);
+		vecBody[i].v.vx += cos(angle) * a;
+		vecBody[i].v.vy += sin(angle) * a;
+	}	
+	vecBody[i].pos.x += vecBody[i].v.vx * deltaTime;
+	vecBody[i].pos.y += vecBody[i].v.vy * deltaTime;
+	vecBody[i].sprite.move(static_cast<float>(vecBody[i].v.vx), static_cast<float>(vecBody[i].v.vy));
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;
+	fontHelvetic.loadFromFile(nameFile);
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+	Text text("", font, 20);
+	text.setColor(Color::White);
+	text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+	text.setPosition(10, 10 );
+	return text;
+
+}
+
+Vector2f GetSpriteCenter(const Sprite& object)
+{
+	FloatRect center = object.getGlobalBounds();
+	return Vector2f(center.left + center.width / 2.f, center.top + center.height / 2.f);
+}
+
+Vector2f GetSpriteSize(const Sprite& object)
+{
+	IntRect originalSize = object.getTextureRect();
+	Vector2f scale = object.getScale();
+	return Vector2f(originalSize.width * scale.x, originalSize.height * scale.y);
+}
+
+bool CollisionImages(vector<FigureCircle>const& object, int i)
+{
+	Vector2f obj0Size = GetSpriteSize(object[0].sprite);
+	Vector2f obj1Size = GetSpriteSize(object[i].sprite);
+	float radius0 = (obj0Size.x ) / 2 - 10;
+	float radius1 = (obj1Size.x ) / 2 - 10;
+	Vector2f distance = GetSpriteCenter(object[0].sprite) - GetSpriteCenter(object[i].sprite);
+	return ((distance.x * distance.x + distance.y * distance.y) <= (radius0 + radius1) * (radius0 + radius1));
+}
+
+void DrawSprite(RenderWindow& window, FigureCircle& vecBody)
+{
+	vecBody.sprite.setPosition(static_cast<float>(vecBody.pos.x), static_cast<float>(vecBody.pos.y));
+	window.draw(vecBody.sprite);	
+}
+
+
+String StrFps(Time& timeLastUpdate)
+{
+	int fps = static_cast<int>(1 / (timeLastUpdate.asSeconds()));
+	char str[10];
+	sprintf_s(str, "%s %d", "FPS: ", fps);
+	return str;
+}
+
+
+void GetPlanetCoordinateForView(View& view, float x,float y) 
+{ 
+	view.setCenter(x + 100, y); 
+}
+
+void ConvertMapCoordsToPixelText(RenderWindow& window, Text& text, int mX, int mY)//const ссылка 
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	text.setPosition(center.x - size.x / 2 + mX, center.y - size.y / 2 + mY);//позиция на экране
+}
+
+void ConvertMapCoordsToPixelBackground(RenderWindow& window, Sprite& bg)
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	bg.setPosition(center.x - size.x / 2 , center.y - size.y / 2 );//позиция на экране
+}
+
+Vector2f MousePosition(RenderWindow& window)
+{
+	Vector2i pixelPos = sf::Mouse::getPosition(window);
+	return Vector2f(window.mapPixelToCoords(pixelPos));
+}
+
+void DrawLine(RenderWindow& window, Sprite& body)
+{
+	body.getTexture() -> getSize();
+	Vector2f mousePosition = MousePosition(window);
+	Vertex line[] =
+	{
+		Vertex(GetSpriteCenter(body)),
+		Vertex(Vector2f(mousePosition.x, mousePosition.y))
+	};
+	window.draw(line, 3, Lines);
+}
+
+Vector2f GetMousePosition(RenderWindow& window)
+{
+	return Vector2f(MousePosition(window));
+}
+void NewBody(RenderWindow& window, vector<FigureCircle>& vecBody, vector<Texture>& setTexture, Sprite& bodySprite)
+{						
+	Vector2f mousePositionEndClick = GetMousePosition(window);
+	FigureCircle body;
+	float vx = (mousePositionClick.x - mousePositionEndClick.x) / 7;
+	float vy = (mousePositionClick.y - mousePositionEndClick.y) / 7;
+	Vector2f spriteSize = GetSpriteSize(bodySprite);
+	float radius = spriteSize.x / 2;
+	double volume = 4/3 * pi * pow(radius, 3);
+	double weight = density * volume;
+	cout << "Масса = " << weight << endl;
+	InitializeBody(body, weight, vx, vy, bodySprite.getScale().x, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+	vecBody.push_back(body);
+}
+
+Sprite SetSpriteNewBody(RenderWindow& window, FigureCircle& body, vector<Texture>& setTexture)
+{
+
+	Vector2f mausPosition = GetMousePosition(window);
+	body.sprite = SetTexture(setTexture[2]);
+	float scale = static_cast<float>(sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)) * 0.001);
+	body.sprite.scale(scale, scale);
+	body.sprite.setPosition(mousePositionClick.x, mousePositionClick.y);
+	body.sprite.setOrigin(sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)), sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)));
+	return body.sprite;
+}
+
+void ProcessingStateMouse(ClickState& clickState, RenderWindow& window, vector<Texture>& setTexture, vector<FigureCircle>& vecBody, FigureCircle& body)
+{
+	switch (clickState)
+    {
+        case CS_CLICK:
+		{
+			Sprite newSpriteBody = SetSpriteNewBody(window, body, setTexture);
+			window.draw(newSpriteBody);
+            break;
+		}
+		case CS_SET_BODY:
+		{
+		    window.draw(body.sprite);
+			DrawLine(window, body.sprite);
+			break;
+		}
+		case CS_PUSH_BODY:
+		{
+			NewBody(window, vecBody, setTexture, body.sprite);
+			clickState = CS_NIL;
+		}
+    }
+}
+
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture;
+	PushInVectorTexture(setTexture);
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetTexture(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(2);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 4000, 0, 0, 0.15, 500, 350, setTexture[1]);
+	InitializeBody(vecBody[1], 3000, 15, 20, 0.25, 950, 20, setTexture[2]);
+	//InitializeBody(vecBody[2], 25, 15, 15, 0.05, 750, 50, setTexture[2]);
+
+	Clock clock;
+	Time timeLastUpdate = Time::Zero;
+
+	View view;
+	view.reset(FloatRect(0, 0, 1200, 700));
+	view.setViewport(FloatRect(0, 0, 1.0f, 1.0f));
+	float zoom = 1.0f;
+	ClickState clickState;
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, clickState, zoom, view);
+		while (timeLastUpdate > dt) 
+		{  
+			window.clear(Color::Black); 		
+			text.setString(StrFps(timeLastUpdate));
+			timeLastUpdate -= dt; 
+			window.setView(view);
+			window.draw(bg);
+			window.draw(vecBody.at(0).sprite);
+			window.draw(text);	
+			ProcessingStateMouse(clickState, window, setTexture, vecBody, body);
+			for (int i = 1; i != vecBody.size(); i++)
+			{
+				NewPosition(vecBody, i); 
+				if (CollisionImages(vecBody, i) && i != 0)		
+				{	
+					vecBody.erase(vecBody.begin() + i);
+					i = 0;
+				}
+				else
+				{	
+					DrawSprite(window, vecBody[i]);
+				}	
+			}
+			window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
+#include <windows.h>
+#include <vector>
+
+using namespace sf;
+using namespace std;
+
+typedef sf::Vector2<double> Vector2d;
+const double gravConst = 6.67384e1; 
+const float FPS = 60.0f;
+const Time dt = seconds(1.0f / FPS);
+const float deltaTime = 0.1f;
+const double pi = 3.14;
+const double density = 0.002;
+
+struct Speed
+{
+	double vx;
+	double vy;
+};
+
+struct Position
+{
+	double x;
+	double y;
+};
+
+
+
+struct FigureCircle
+{
+	double weight;
+	Speed v;
+	Position pos;
+	CircleShape sh;
+	Sprite sprite;
+};
+
+enum ClickState
+{
+	CS_NIL,
+	CS_CLICK,
+	CS_SET_BODY,
+	CS_PUSH_BODY,
+};
+
+Texture LoadTexture(String const& fileName)
+{
+	Texture background;
+	if (!background.loadFromFile(fileName))
+	{
+		cout << "The image is not loaded!" << endl;
+		ExitProcess(0);
+	}
+	return background;
+}
+
+//Sprite SetSprite(Texture const& texture);
+
+Sprite SetTexture(Texture const& texture)//Setetxture
+{
+	Sprite bg;
+	bg.setTexture(texture);
+	return bg;
+}
+
+void PushInVectorTexture(vector<Texture>& setTexture) //Переименовать
+{
+
+	Texture background = LoadTexture("img/background.jpg");
+	setTexture.push_back(background);
+
+	Texture sun = LoadTexture("img/sun.png");
+	setTexture.push_back(sun);
+
+	Texture earth = LoadTexture("img/earth2.png");
+	setTexture.push_back(earth);
+
+	Texture mars = LoadTexture("img/mars.png");
+	setTexture.push_back(mars);
+}
+
+//InitializeBody(vecBody[0], 4000, 0, 0, 0.15, 500, 350, setTexture[1]);
+void InitializeBody(FigureCircle& body, double weight, double vX, double vY, float scale, float posX, float posY, Texture const& tx)
+{
+	body.sprite = SetTexture(tx);
+	body.sprite.scale(scale, scale);
+	body.pos.x = posX;
+	body.pos.y = posY;
+	body.sprite.setPosition(posX, posY);
+	body.weight = weight;
+	body.v.vx = vX;
+	body.v.vy = vY;
+}
+
+double Distance(double dx, double dy)
+{
+	return sqrt(pow(dx, 2) + pow(dy, 2));
+}
+
+Vector2f mousePositionClick;
+void ProcessEvents(RenderWindow& window, ClickState& clickState, float& zoom, View& view)
+{
+	Event event;
+	while (window.pollEvent(event))	
+	{		
+		if (event.type == sf::Event::Closed)		
+		{
+			window.close();
+		}
+		
+       if(event.type == sf::Event::MouseWheelScrolled)
+	   {
+		   if(event.mouseWheelScroll.delta > 0)
+		   {
+			   zoom += 0.01f;
+		   }
+		   else
+		   {
+			   zoom -= 0.01f;
+		   }
+		   view.zoom(zoom);
+		   zoom = 1.0f;
+	   }
+
+		if ((event.type == Event::MouseButtonPressed) && (event.key.code == Mouse::Left))//если нажата кнопка мыши
+		{	
+			if ((clickState != CS_CLICK) && (clickState != CS_SET_BODY))
+			{
+				Vector2i pixelPos = sf::Mouse::getPosition(window);
+				mousePositionClick = window.mapPixelToCoords(pixelPos);
+				clickState = CS_CLICK;
+			}
+			else if (clickState == CS_CLICK)
+			{
+				clickState = CS_SET_BODY;
+			}
+			else
+			{
+				clickState = CS_PUSH_BODY;
+			}
+
+		}
+
+	}
+
+}
+
+Vector2f GetSpriteCenter(const Sprite& object)
+{
+	FloatRect center = object.getGlobalBounds();
+	return Vector2f(center.left + center.width / 2.f, center.top + center.height / 2.f);
+}
+
+
+Vector2f DeltaPosition(Vector2f const& bod1, Vector2f const& body2) //Vector2d-Vector2d
+{
+	return Vector2f(bod1.x - body2.x, bod1.y - body2.y);
+}
+
+void NewPosition(RenderWindow& window, vector<FigureCircle>& vecBody, int i) //Определение позиции
+{
+	for (int k = 0; k !=vecBody.size(); k++)
+	{
+		if (k == i)
+		{
+			continue;
+		}
+		Vector2f planet = GetSpriteCenter(vecBody[k].sprite);
+		Vector2f mainPlanet = GetSpriteCenter(vecBody[i].sprite);
+		/*if (k == 0)
+		{
+			cout << planet.x << " ||| " << vecBody[0].pos.x << endl;
+		}*/
+		Vector2f delta = DeltaPosition(planet, mainPlanet);
+		double distance = Distance(delta.x, delta.y);
+		double angle = atan2(delta.y, delta.x);
+		double a =  deltaTime * gravConst * vecBody[k].weight / pow(distance, 2);
+		vecBody[i].v.vx += cos(angle) * a;
+		vecBody[i].v.vy += sin(angle) * a;
+	}	
+	vecBody[i].pos.x += vecBody[i].v.vx * deltaTime;
+	vecBody[i].pos.y += vecBody[i].v.vy * deltaTime;
+	vecBody[i].sprite.move(static_cast<float>(vecBody[i].v.vx), static_cast<float>(vecBody[i].v.vy));
+}
+
+Font LoadFont(String nameFile)
+{
+	Font fontHelvetic;
+	fontHelvetic.loadFromFile(nameFile);
+	return fontHelvetic;
+}
+
+Text TextFps(Font const& font) 
+{
+	Text text("", font, 20);
+	text.setColor(Color::White);
+	text.setStyle(sf::Text::Bold);
+	text.setString("FPS: ");
+	text.setPosition(10, 10 );
+	return text;
+
+}
+
+Vector2f GetSpriteSize(const Sprite& object)
+{
+	IntRect originalSize = object.getTextureRect();
+	Vector2f scale = object.getScale();
+	return Vector2f(originalSize.width * scale.x, originalSize.height * scale.y);
+}
+
+bool CollisionImages(vector<FigureCircle>const& object, int i)
+{
+	Vector2f obj0Size = GetSpriteSize(object[0].sprite);
+	Vector2f obj1Size = GetSpriteSize(object[i].sprite);
+	float radius0 = (obj0Size.x - 10) / 2 ;
+	float radius1 = (obj1Size.x) / 2 ;
+	Vector2f distance = GetSpriteCenter(object[0].sprite) - GetSpriteCenter(object[i].sprite);
+	return ((distance.x * distance.x + distance.y * distance.y) <= (radius0 + radius1) * (radius0 + radius1));
+}
+
+void DrawSprite(RenderWindow& window, FigureCircle& vecBody)
+{
+	vecBody.sprite.setPosition(static_cast<float>(vecBody.pos.x), static_cast<float>(vecBody.pos.y));
+	window.draw(vecBody.sprite);	
+}
+
+
+String StrFps(Time& timeLastUpdate)
+{
+	int fps = static_cast<int>(1 / (timeLastUpdate.asSeconds()));
+	char str[10];
+	sprintf_s(str, "%s %d", "FPS: ", fps);
+	return str;
+}
+
+
+void GetPlanetCoordinateForView(View& view, float x,float y) 
+{ 
+	view.setCenter(x + 100, y); 
+}
+
+void ConvertMapCoordsToPixelText(RenderWindow& window, Text& text, int mX, int mY)//const ссылка 
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	text.setPosition(center.x - size.x / 2 + mX, center.y - size.y / 2 + mY);//позиция на экране
+}
+
+void ConvertMapCoordsToPixelBackground(RenderWindow& window, Sprite& bg)
+{
+	Vector2f center = window.getView().getCenter();
+	Vector2f size = window.getView().getSize();
+	bg.setPosition(center.x - size.x / 2 , center.y - size.y / 2 );//позиция на экране
+}
+
+Vector2f MousePosition(RenderWindow& window)
+{
+	Vector2i pixelPos = sf::Mouse::getPosition(window);
+	return Vector2f(window.mapPixelToCoords(pixelPos));
+}
+
+void DrawLine(RenderWindow& window, Sprite& body)
+{
+	body.getTexture() -> getSize();
+	Vector2f mousePosition = MousePosition(window);
+	Vertex line[] =
+	{
+		Vertex(GetSpriteCenter(body)),
+		Vertex(Vector2f(mousePosition.x, mousePosition.y))
+	};
+	window.draw(line, 3, Lines);
+}
+
+Vector2f GetMousePosition(RenderWindow& window)
+{
+	return Vector2f(MousePosition(window));
+}
+void NewBody(RenderWindow& window, vector<FigureCircle>& vecBody, vector<Texture>& setTexture, Sprite& bodySprite)
+{						
+	Vector2f mousePositionEndClick = GetMousePosition(window);
+	FigureCircle body;
+	float vx = (mousePositionClick.x - mousePositionEndClick.x) / 7;
+	float vy = (mousePositionClick.y - mousePositionEndClick.y) / 7;
+	Vector2f spriteSize = GetSpriteSize(bodySprite);
+	float radius = spriteSize.x / 2;
+	double volume = 4/3 * pi * pow(radius, 3);
+	double weight = density * volume;
+	cout << "Масса = " << weight << endl;
+	InitializeBody(body, weight, vx, vy, bodySprite.getScale().x, mousePositionClick.x, mousePositionClick.y, setTexture[rand() % (setTexture.size() - 2) + 2]);
+	vecBody.push_back(body);
+}
+
+Sprite SetSpriteNewBody(RenderWindow& window, FigureCircle& body, vector<Texture>& setTexture)
+{
+
+	Vector2f mausPosition = GetMousePosition(window);
+	body.sprite = SetTexture(setTexture[2]);
+	float scale = static_cast<float>(sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)) * 0.001);
+	body.sprite.scale(scale, scale);
+	body.sprite.setPosition(mousePositionClick.x, mousePositionClick.y);
+	body.sprite.setOrigin(sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)), sqrt(pow(mousePositionClick.x - mausPosition.x, 2) + pow(mousePositionClick.y - mausPosition.y, 2)));
+	return body.sprite;
+}
+
+void ProcessingStateMouse(ClickState& clickState, RenderWindow& window, vector<Texture>& setTexture, vector<FigureCircle>& vecBody, FigureCircle& body)
+{
+	switch (clickState)
+    {
+        case CS_CLICK:
+		{
+			Sprite newSpriteBody = SetSpriteNewBody(window, body, setTexture);
+			window.draw(newSpriteBody);
+            break;
+		}
+		case CS_SET_BODY:
+		{
+		    window.draw(body.sprite);
+			DrawLine(window, body.sprite);
+			break;
+		}
+		case CS_PUSH_BODY:
+		{
+			NewBody(window, vecBody, setTexture, body.sprite);
+			clickState = CS_NIL;
+		}
+    }
+}
+
+int main()
+{
+	setlocale(LC_ALL,"Russian");
+	RenderWindow window(VideoMode(1200, 700), "Orbiting");
+
+	vector<Texture> setTexture;
+	PushInVectorTexture(setTexture);
+
+	Texture bgTexture = setTexture[0];
+	Sprite bg = SetTexture(bgTexture);
+
+	Font font = LoadFont("font/helveticaneuecyr-light.otf");
+	Text text = TextFps(font);
+
+	vector<FigureCircle> vecBody(1);
+	FigureCircle body;
+	InitializeBody(vecBody[0], 4000, 0, 0, 0.15, 500, 350, setTexture[1]);
+	//InitializeBody(vecBody[1], 3000, 15, 20, 0.25, 950, 20, setTexture[2]);
+	//InitializeBody(vecBody[2], 25, 15, 15, 0.05, 750, 50, setTexture[2]);
+
+	Clock clock;
+	Time timeLastUpdate = Time::Zero;
+
+	View view;
+	view.reset(FloatRect(0, 0, 1200, 700));
+	view.setViewport(FloatRect(0, 0, 1.0f, 1.0f));
+	float zoom = 1.0f;
+	ClickState clickState;
+	while (window.isOpen())
+	{     
+		ProcessEvents(window, clickState, zoom, view);
+		while (timeLastUpdate > dt) 
+		{  
+			window.clear(Color::Black); 		
+			text.setString(StrFps(timeLastUpdate));
+			timeLastUpdate -= dt; 
+			window.setView(view);
+			window.draw(bg);
+			window.draw(vecBody.at(0).sprite);
+			window.draw(text);	
+			ProcessingStateMouse(clickState, window, setTexture, vecBody, body);
+			for (int i = 1; i != vecBody.size(); i++)
+			{
+				NewPosition(window, vecBody, i); 
+				if (CollisionImages(vecBody, i) && i != 0)		
+				{	
+					vecBody.erase(vecBody.begin() + i);
+					i = 0;
+				}
+				else
+				{	
+					DrawSprite(window, vecBody[i]);
+				}	
+			}
+			window.display();	
+		}
+		timeLastUpdate += clock.restart();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Исправлены две баги с движением объектов, 
+первое неправильно рассчитывались координаты 
+vecBody[i].pos.x += vecBody[i].v.vx * deltaTime;
+vecBody[i].pos.y += vecBody[i].v.vy * deltaTime;
+второе из-за того, что дистанция объектов рассчитывалось из левой вершины спрайта, происходили странные движения  с объектом,
+		Vector2f planet = GetSpriteCenter(vecBody[k].sprite);
+		Vector2f mainPlanet = GetSpriteCenter(vecBody[i].sprite);
